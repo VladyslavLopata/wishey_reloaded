@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:wishey/core/models/wish_list.dart';
+import 'package:wishey/core/util/app_config.dart';
 import 'package:wishey/features/create_wish/repositories/forms_state_repository.dart';
 
 const _emptyWish = Wish(topic: '', title: '');
@@ -10,7 +11,8 @@ const _currentKey = '_currentFormKey';
 @Injectable(as: FormsStateRepository)
 class FormsStateRepositoryImpl implements FormsStateRepository {
   final Box<Wish> _hiveBox;
-  FormsStateRepositoryImpl() : _hiveBox = Hive.box('wishes_forms');
+  FormsStateRepositoryImpl(AppConfig _appConfig)
+      : _hiveBox = Hive.box(_appConfig.formsBoxKey);
 
   @override
   Wish get currentWish => _current;
