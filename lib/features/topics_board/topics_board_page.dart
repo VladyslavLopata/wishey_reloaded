@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wishey/core/service_locator/service_locator.dart';
+import 'package:wishey/core/util/common_builders.dart';
+import 'package:wishey/core/util/common_slivers.dart';
+import 'package:wishey/features/topics_board/cubit/topics_board_cubit.dart';
+
+class TopicsBoardPage extends StatelessWidget {
+  const TopicsBoardPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => injector<TopicsBoardCubit>()..init(),
+      child: SafeArea(
+        child: Builder(builder: (context) {
+          return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: context.read<TopicsBoardCubit>().addWish,
+              child: const Icon(Icons.add),
+            ),
+            body: BlocBuilder<TopicsBoardCubit, TopicsBoardState>(
+                builder: (context, state) {
+              return state.when(
+                initial: CommonBuilders.buildEmptyState,
+                loading: CommonBuilders.buildLoadingState,
+                loaded: (topics) => LoadedTopicsBoardPage(topics: topics),
+                error: CommonBuilders.buildErrorState,
+              );
+            }),
+          );
+        }),
+      ),
+    );
+  }
+}
+
+class LoadedTopicsBoardPage extends StatelessWidget {
+  const LoadedTopicsBoardPage({
+    Key? key,
+    required this.topics,
+  }) : super(key: key);
+  final List<String> topics;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        const SliverAppBar(
+          title: Text('Your Wish Topics'),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.all(8.0),
+          sliver: CommonSlivers.getGrid(
+            topics,
+            childBuilder: (context, index, child) => GestureDetector(
+              onTap: () =>
+                  context.read<TopicsBoardCubit>().openTopic(topics[index]),
+              child: child,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
