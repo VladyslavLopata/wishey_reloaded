@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:wishey/core/models/error_prone.dart';
 import 'package:wishey/core/models/wish_list.dart';
-import 'package:wishey/core/router/auto_route.gr.dart';
+import 'package:wishey/core/router/auto_route.dart';
 import 'package:wishey/features/wishes_board/cubit/wishes_board_cubit.dart';
 import 'package:wishey/features/wishes_board/use_cases/get_wishes_use_case.dart';
 

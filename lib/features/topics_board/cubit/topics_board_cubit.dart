@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/router/auto_route.gr.dart';
+import 'package:wishey/core/router/auto_route.dart';
 import 'package:wishey/features/topics_board/use_cases/get_topics.dart';
 
 part 'topics_board_cubit.freezed.dart';

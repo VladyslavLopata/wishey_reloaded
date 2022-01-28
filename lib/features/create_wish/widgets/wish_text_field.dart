@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const _textBorderRadius = 12.0;
 const _marginSmall = 8.0;
 
-typedef ChangeCallback = void Function(String);
+typedef ChangeCallback = void Function(String text);
 
 class WishTextField extends StatefulWidget {
   final String initialData;

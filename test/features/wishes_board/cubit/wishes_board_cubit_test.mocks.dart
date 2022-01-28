@@ -15,7 +15,7 @@ import 'package:flutter/material.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:wishey/core/models/error_prone.dart' as _i2;
 import 'package:wishey/core/models/wish_list.dart' as _i9;
-import 'package:wishey/core/router/auto_route.gr.dart' as _i10;
+import 'package:wishey/core/router/auto_route.dart' as _i10;
 import 'package:wishey/features/wishes_board/use_cases/get_wishes_use_case.dart'
     as _i7;
 

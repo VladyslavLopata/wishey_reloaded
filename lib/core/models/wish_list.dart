@@ -15,7 +15,7 @@ class WishList with _$WishList {
 
 @freezed
 class Wish with _$Wish {
-  @HiveType(typeId: 0)
+  @HiveType(typeId: 0, adapterName: 'WishAdapter')
   const factory Wish({
     @HiveField(0) required String topic,
     @HiveField(1) required String title,

@@ -314,7 +314,7 @@ class __$WishCopyWithImpl<$Res> extends _$WishCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@HiveType(typeId: 0)
+@HiveType(typeId: 0, adapterName: 'WishAdapter')
 class _$_Wish implements _Wish {
   const _$_Wish(
       {@HiveField(0) required this.topic,
