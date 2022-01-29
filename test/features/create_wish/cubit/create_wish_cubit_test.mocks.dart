@@ -2,31 +2,33 @@
 // in wishey/test/features/create_wish/cubit/create_wish_cubit_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i10;
-import 'dart:ui' as _i18;
+import 'dart:async' as _i11;
+import 'dart:ui' as _i19;
 
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:auto_route/src/matcher/route_matcher.dart' as _i4;
 import 'package:auto_route/src/router/controller/pageless_routes_observer.dart'
     as _i7;
 import 'package:auto_route/src/router/controller/routing_controller.dart'
-    as _i17;
+    as _i18;
 import 'package:flutter/material.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:wishey/core/models/error_prone.dart' as _i3;
-import 'package:wishey/core/router/auto_route.dart' as _i16;
+import 'package:wishey/core/models/wish_list.dart' as _i9;
+import 'package:wishey/core/router/auto_route.dart' as _i17;
 import 'package:wishey/features/create_wish/use_cases/get_view_model.dart'
     as _i8;
 import 'package:wishey/features/create_wish/use_cases/get_wish_topic.dart'
-    as _i15;
+    as _i16;
 import 'package:wishey/features/create_wish/use_cases/init_forms_storage.dart'
-    as _i14;
+    as _i15;
 import 'package:wishey/features/create_wish/use_cases/is_wish_valid.dart'
-    as _i12;
-import 'package:wishey/features/create_wish/use_cases/save_wish.dart' as _i13;
+    as _i13;
+import 'package:wishey/features/create_wish/use_cases/save_wish.dart' as _i14;
 import 'package:wishey/features/create_wish/use_cases/should_show_save_button.dart'
-    as _i11;
-import 'package:wishey/features/create_wish/use_cases/update_field.dart' as _i9;
+    as _i12;
+import 'package:wishey/features/create_wish/use_cases/update_field.dart'
+    as _i10;
 import 'package:wishey/features/create_wish/view_models/loaded_state_view_model.dart'
     as _i2;
 
@@ -90,8 +92,8 @@ class MockGetViewModelUseCase extends _i1.Mock
   }
 
   @override
-  _i2.LoadedStateViewModel call(String? topic) => (super.noSuchMethod(
-      Invocation.method(#call, [topic]),
+  _i2.LoadedStateViewModel call(_i9.Wish? wish) => (super.noSuchMethod(
+      Invocation.method(#call, [wish]),
       returnValue: _FakeLoadedStateViewModel_0()) as _i2.LoadedStateViewModel);
 }
 
@@ -99,7 +101,7 @@ class MockGetViewModelUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUpdateFieldUseCase extends _i1.Mock
-    implements _i9.UpdateFieldUseCase {
+    implements _i10.UpdateFieldUseCase {
   MockUpdateFieldUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -113,20 +115,20 @@ class MockUpdateFieldUseCase extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#executeErrorProne, [function]),
           returnValue: _FakeErrorProne_1<T>()) as _i3.ErrorProne<T>);
   @override
-  _i10.Future<_i3.ErrorProne<T>> executeErrorProneAsync<T>(
-          _i10.Future<T> Function()? function) =>
+  _i11.Future<_i3.ErrorProne<T>> executeErrorProneAsync<T>(
+          _i11.Future<T> Function()? function) =>
       (super.noSuchMethod(
               Invocation.method(#executeErrorProneAsync, [function]),
               returnValue:
                   Future<_i3.ErrorProne<T>>.value(_FakeErrorProne_1<T>()))
-          as _i10.Future<_i3.ErrorProne<T>>);
+          as _i11.Future<_i3.ErrorProne<T>>);
 }
 
 /// A class which mocks [ShouldShowSaveButtonUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockShouldShowSaveButtonUseCase extends _i1.Mock
-    implements _i11.ShouldShowSaveButtonUseCase {
+    implements _i12.ShouldShowSaveButtonUseCase {
   MockShouldShowSaveButtonUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -141,7 +143,7 @@ class MockShouldShowSaveButtonUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockIsWishValidUseCase extends _i1.Mock
-    implements _i12.IsWishValidUseCase {
+    implements _i13.IsWishValidUseCase {
   MockIsWishValidUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -155,31 +157,34 @@ class MockIsWishValidUseCase extends _i1.Mock
 /// A class which mocks [SaveWishUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSaveWishUseCase extends _i1.Mock implements _i13.SaveWishUseCase {
+class MockSaveWishUseCase extends _i1.Mock implements _i14.SaveWishUseCase {
   MockSaveWishUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i10.Future<_i3.ErrorProne<void>> call() =>
-      (super.noSuchMethod(Invocation.method(#call, []),
+  _i11.Future<_i3.ErrorProne<void>> call(
+          {bool? shouldReplaceExisting = false}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #call, [], {#shouldReplaceExisting: shouldReplaceExisting}),
               returnValue:
                   Future<_i3.ErrorProne<void>>.value(_FakeErrorProne_1<void>()))
-          as _i10.Future<_i3.ErrorProne<void>>);
+          as _i11.Future<_i3.ErrorProne<void>>);
 }
 
 /// A class which mocks [InitFormsStorageUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockInitFormsStorageUseCase extends _i1.Mock
-    implements _i14.InitFormsStorageUseCase {
+    implements _i15.InitFormsStorageUseCase {
   MockInitFormsStorageUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  void call({String? topic}) =>
-      super.noSuchMethod(Invocation.method(#call, [], {#topic: topic}),
+  void call({_i9.Wish? wish = const _i9.Wish(topic: r'', title: r'')}) =>
+      super.noSuchMethod(Invocation.method(#call, [], {#wish: wish}),
           returnValueForMissingStub: null);
 }
 
@@ -187,7 +192,7 @@ class MockInitFormsStorageUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetWishTopicUseCase extends _i1.Mock
-    implements _i15.GetWishTopicUseCase {
+    implements _i16.GetWishTopicUseCase {
   MockGetWishTopicUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -201,7 +206,7 @@ class MockGetWishTopicUseCase extends _i1.Mock
 /// A class which mocks [AppRouter].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
+class MockAppRouter extends _i1.Mock implements _i17.AppRouter {
   MockAppRouter() {
     _i1.throwOnMissingStub(this);
   }
@@ -332,7 +337,7 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
           _i5.RoutePopCallBack? onPopRoute,
           _i5.OnNavigateCallBack? onNavigate,
           _i5.NavigatorObserversBuilder? navigatorObservers =
-              _i17.AutoRouterDelegate.defaultNavigatorObserversBuilder}) =>
+              _i18.AutoRouterDelegate.defaultNavigatorObserversBuilder}) =>
       (super.noSuchMethod(
           Invocation.method(#declarativeDelegate, [], {
             #routes: routes,
@@ -349,7 +354,7 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
           String? navRestorationScopeId,
           _i6.WidgetBuilder? placeholder,
           _i5.NavigatorObserversBuilder? navigatorObservers =
-              _i17.AutoRouterDelegate.defaultNavigatorObserversBuilder}) =>
+              _i18.AutoRouterDelegate.defaultNavigatorObserversBuilder}) =>
       (super.noSuchMethod(
           Invocation.method(#delegate, [], {
             #initialRoutes: initialRoutes,
@@ -374,7 +379,7 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
       returnValueForMissingStub: null);
   @override
-  _i10.Future<T?> pushWidget<T extends Object?>(_i6.Widget? widget,
+  _i11.Future<T?> pushWidget<T extends Object?>(_i6.Widget? widget,
           {_i6.RouteTransitionsBuilder? transitionBuilder,
           bool? fullscreenDialog = false,
           Duration? transitionDuration = const Duration(milliseconds: 300)}) =>
@@ -386,11 +391,11 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
             #fullscreenDialog: fullscreenDialog,
             #transitionDuration: transitionDuration
           }),
-          returnValue: Future<T?>.value()) as _i10.Future<T?>);
+          returnValue: Future<T?>.value()) as _i11.Future<T?>);
   @override
-  _i10.Future<T?> pushNativeRoute<T extends Object?>(_i6.Route<T>? route) =>
+  _i11.Future<T?> pushNativeRoute<T extends Object?>(_i6.Route<T>? route) =>
       (super.noSuchMethod(Invocation.method(#pushNativeRoute, [route]),
-          returnValue: Future<T?>.value()) as _i10.Future<T?>);
+          returnValue: Future<T?>.value()) as _i11.Future<T?>);
   @override
   _i5.RoutingController topMostRouter({bool? ignorePagelessRoutes = false}) =>
       (super.noSuchMethod(
@@ -398,9 +403,9 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
               {#ignorePagelessRoutes: ignorePagelessRoutes}),
           returnValue: _FakeRoutingController_15()) as _i5.RoutingController);
   @override
-  _i10.Future<bool> pop<T extends Object?>([T? result]) =>
+  _i11.Future<bool> pop<T extends Object?>([T? result]) =>
       (super.noSuchMethod(Invocation.method(#pop, [result]),
-          returnValue: Future<bool>.value(false)) as _i10.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i11.Future<bool>);
   @override
   void popForced<T extends Object?>([T? result]) =>
       super.noSuchMethod(Invocation.method(#popForced, [result]),
@@ -413,54 +418,54 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
       .noSuchMethod(Invocation.method(#removeRoute, [route], {#notify: notify}),
           returnValueForMissingStub: null);
   @override
-  _i10.Future<T?> push<T extends Object?>(_i5.PageRouteInfo<dynamic>? route,
+  _i11.Future<T?> push<T extends Object?>(_i5.PageRouteInfo<dynamic>? route,
           {_i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
           Invocation.method(#push, [route], {#onFailure: onFailure}),
-          returnValue: Future<T?>.value()) as _i10.Future<T?>);
+          returnValue: Future<T?>.value()) as _i11.Future<T?>);
   @override
-  _i10.Future<T?> replace<T extends Object?>(_i5.PageRouteInfo<dynamic>? route,
+  _i11.Future<T?> replace<T extends Object?>(_i5.PageRouteInfo<dynamic>? route,
           {_i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
           Invocation.method(#replace, [route], {#onFailure: onFailure}),
-          returnValue: Future<T?>.value()) as _i10.Future<T?>);
+          returnValue: Future<T?>.value()) as _i11.Future<T?>);
   @override
-  _i10.Future<void> pushAll(List<_i5.PageRouteInfo<dynamic>>? routes,
+  _i11.Future<void> pushAll(List<_i5.PageRouteInfo<dynamic>>? routes,
           {_i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
               Invocation.method(#pushAll, [routes], {#onFailure: onFailure}),
               returnValue: Future<void>.value(),
               returnValueForMissingStub: Future<void>.value())
-          as _i10.Future<void>);
+          as _i11.Future<void>);
   @override
-  _i10.Future<void> popAndPushAll(List<_i5.PageRouteInfo<dynamic>>? routes,
+  _i11.Future<void> popAndPushAll(List<_i5.PageRouteInfo<dynamic>>? routes,
           {dynamic onFailure}) =>
       (super.noSuchMethod(
           Invocation.method(#popAndPushAll, [routes], {#onFailure: onFailure}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub:
-              Future<void>.value()) as _i10.Future<void>);
+              Future<void>.value()) as _i11.Future<void>);
   @override
-  _i10.Future<void> replaceAll(List<_i5.PageRouteInfo<dynamic>>? routes,
+  _i11.Future<void> replaceAll(List<_i5.PageRouteInfo<dynamic>>? routes,
           {_i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
               Invocation.method(#replaceAll, [routes], {#onFailure: onFailure}),
               returnValue: Future<void>.value(),
               returnValueForMissingStub: Future<void>.value())
-          as _i10.Future<void>);
+          as _i11.Future<void>);
   @override
   void popUntilRoot() =>
       super.noSuchMethod(Invocation.method(#popUntilRoot, []),
           returnValueForMissingStub: null);
   @override
-  _i10.Future<T?> popAndPush<T extends Object?, TO extends Object?>(
+  _i11.Future<T?> popAndPush<T extends Object?, TO extends Object?>(
           _i5.PageRouteInfo<dynamic>? route,
           {TO? result,
           _i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
           Invocation.method(
               #popAndPush, [route], {#result: result, #onFailure: onFailure}),
-          returnValue: Future<T?>.value()) as _i10.Future<T?>);
+          returnValue: Future<T?>.value()) as _i11.Future<T?>);
   @override
   bool removeUntil(_i5.RouteDataPredicate? predicate) =>
       (super.noSuchMethod(Invocation.method(#removeUntil, [predicate]),
@@ -479,24 +484,24 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
       super.noSuchMethod(Invocation.method(#updateDeclarativeRoutes, [routes]),
           returnValueForMissingStub: null);
   @override
-  _i10.Future<void> navigateAll(List<_i5.RouteMatch<dynamic>>? routes,
+  _i11.Future<void> navigateAll(List<_i5.RouteMatch<dynamic>>? routes,
           {_i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
           Invocation.method(#navigateAll, [routes], {#onFailure: onFailure}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub:
-              Future<void>.value()) as _i10.Future<void>);
+              Future<void>.value()) as _i11.Future<void>);
   @override
-  _i10.Future<T?> pushAndPopUntil<T extends Object?>(
+  _i11.Future<T?> pushAndPopUntil<T extends Object?>(
           _i5.PageRouteInfo<dynamic>? route,
           {_i6.RoutePredicate? predicate,
           _i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
           Invocation.method(#pushAndPopUntil, [route],
               {#predicate: predicate, #onFailure: onFailure}),
-          returnValue: Future<T?>.value()) as _i10.Future<T?>);
+          returnValue: Future<T?>.value()) as _i11.Future<T?>);
   @override
-  _i10.Future<T?> replaceNamed<T extends Object?>(String? path,
+  _i11.Future<T?> replaceNamed<T extends Object?>(String? path,
           {bool? includePrefixMatches = false,
           _i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
@@ -506,9 +511,9 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
             #includePrefixMatches: includePrefixMatches,
             #onFailure: onFailure
           }),
-          returnValue: Future<T?>.value()) as _i10.Future<T?>);
+          returnValue: Future<T?>.value()) as _i11.Future<T?>);
   @override
-  _i10.Future<T?> pushNamed<T extends Object?>(String? path,
+  _i11.Future<T?> pushNamed<T extends Object?>(String? path,
           {bool? includePrefixMatches = false,
           _i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
@@ -518,7 +523,7 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
             #includePrefixMatches: includePrefixMatches,
             #onFailure: onFailure
           }),
-          returnValue: Future<T?>.value()) as _i10.Future<T?>);
+          returnValue: Future<T?>.value()) as _i11.Future<T?>);
   @override
   void popUntilRouteWithName(String? name) =>
       super.noSuchMethod(Invocation.method(#popUntilRouteWithName, [name]),
@@ -554,13 +559,13 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
       (super.noSuchMethod(Invocation.method(#isPathActive, [path]),
           returnValue: false) as bool);
   @override
-  _i10.Future<dynamic> navigate(_i5.PageRouteInfo<dynamic>? route,
+  _i11.Future<dynamic> navigate(_i5.PageRouteInfo<dynamic>? route,
           {_i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
           Invocation.method(#navigate, [route], {#onFailure: onFailure}),
-          returnValue: Future<dynamic>.value()) as _i10.Future<dynamic>);
+          returnValue: Future<dynamic>.value()) as _i11.Future<dynamic>);
   @override
-  _i10.Future<void> navigateNamed(String? path,
+  _i11.Future<void> navigateNamed(String? path,
           {bool? includePrefixMatches = false,
           _i5.OnNavigationFailure? onFailure}) =>
       (super.noSuchMethod(
@@ -572,7 +577,7 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
               }),
               returnValue: Future<void>.value(),
               returnValueForMissingStub: Future<void>.value())
-          as _i10.Future<void>);
+          as _i11.Future<void>);
   @override
   void navigateBack() =>
       super.noSuchMethod(Invocation.method(#navigateBack, []),
@@ -582,15 +587,15 @@ class MockAppRouter extends _i1.Mock implements _i16.AppRouter {
       (super.noSuchMethod(Invocation.method(#innerRouterOf, [routeName]))
           as T?);
   @override
-  _i10.Future<bool> popTop<T extends Object?>([T? result]) =>
+  _i11.Future<bool> popTop<T extends Object?>([T? result]) =>
       (super.noSuchMethod(Invocation.method(#popTop, [result]),
-          returnValue: Future<bool>.value(false)) as _i10.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i11.Future<bool>);
   @override
-  void addListener(_i18.VoidCallback? listener) =>
+  void addListener(_i19.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]),
           returnValueForMissingStub: null);
   @override
-  void removeListener(_i18.VoidCallback? listener) =>
+  void removeListener(_i19.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]),
           returnValueForMissingStub: null);
   @override

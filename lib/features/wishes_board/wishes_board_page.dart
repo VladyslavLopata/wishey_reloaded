@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wishey/core/models/wish_list.dart';
 import 'package:wishey/core/service_locator/service_locator.dart';
 import 'package:wishey/core/util/common_builders.dart';
+import 'package:wishey/core/util/common_dimens.dart';
 import 'package:wishey/core/util/common_slivers.dart';
 import 'package:wishey/features/wishes_board/cubit/wishes_board_cubit.dart';
 
@@ -58,12 +59,13 @@ class WishesBoardPageLoadedView extends StatelessWidget {
           title: Text(topic),
         ),
         SliverPadding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(defaultPadding),
           sliver: CommonSlivers.getGrid(
             wishes.map((wish) => wish.title).toList(),
             childBuilder: (context, index, child) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () =>
+                    context.read<WishesBoardCubit>().editWish(wishes[index]),
                 child: child,
               );
             },

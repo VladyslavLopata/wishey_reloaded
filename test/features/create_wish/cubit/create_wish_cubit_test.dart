@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:wishey/core/models/error_prone.dart';
+import 'package:wishey/core/models/wish_list.dart';
 import 'package:wishey/core/router/auto_route.dart';
 import 'package:wishey/features/create_wish/cubit/create_wish_cubit.dart';
 import 'package:wishey/features/create_wish/cubit/create_wish_state.dart';
@@ -18,6 +19,7 @@ import 'package:wishey/features/create_wish/view_models/loaded_state_view_model.
 import 'create_wish_cubit_test.mocks.dart';
 
 const _emptyTopic = '';
+const _emptyWish = Wish(topic: '', title: '');
 const _emptyViewModel = LoadedStateViewModel();
 
 const _loadingState = CreateWishState.loading();
@@ -70,7 +72,7 @@ void main() {
       _router = MockAppRouter();
       _getWishTopicUseCase = MockGetWishTopicUseCase();
 
-      when(_getViewModelUseCase.call(_emptyTopic)).thenAnswer(
+      when(_getViewModelUseCase.call(_emptyWish)).thenAnswer(
         (_) => _emptyViewModel,
       );
     },
@@ -90,16 +92,41 @@ void main() {
       _router,
       _getWishTopicUseCase,
     ),
-    act: (bloc) => bloc.init(_emptyTopic),
+    act: (bloc) => bloc.init(wish: _emptyWish),
     expect: () => const [
       _loadingState,
       _loadedStateWithEmptyTopic,
     ],
     verify: (_) {
-      verify(_initFormsStorageUseCase(topic: _emptyTopic)).called(1);
-      verify(_getViewModelUseCase(_emptyTopic)).called(1);
+      verify(_initFormsStorageUseCase(wish: _emptyWish)).called(1);
+      verify(_getViewModelUseCase(_emptyWish)).called(1);
       verifyNoMoreInteractions(_initFormsStorageUseCase);
       verifyNoMoreInteractions(_getViewModelUseCase);
+    },
+  );
+
+  blocTest<CreateWishCubit, CreateWishState>(
+    'GIVEN loading state\n'
+    'WHEN added init event\n'
+    'THEN should do nothing',
+    build: () => CreateWishCubit(
+      _getViewModelUseCase,
+      _updateFieldUseCase,
+      _shouldShowSaveButtonUseCase,
+      _isWishValidUseCase,
+      _saveWishUseCase,
+      _initFormsStorageUseCase,
+      _router,
+      _getWishTopicUseCase,
+    ),
+    seed: () => _loadingState,
+    act: (bloc) => bloc.init(wish: _emptyWish),
+    expect: () => const [],
+    verify: (_) {
+      verifyNever(_initFormsStorageUseCase(wish: _emptyWish));
+      verifyNever(_getViewModelUseCase(_emptyWish));
+      verifyZeroInteractions(_initFormsStorageUseCase);
+      verifyZeroInteractions(_getViewModelUseCase);
     },
   );
 

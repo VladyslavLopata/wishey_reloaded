@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wishey/core/service_locator/service_locator.dart';
 import 'package:wishey/core/util/common_builders.dart';
+import 'package:wishey/core/util/common_dimens.dart';
 import 'package:wishey/core/util/common_slivers.dart';
 import 'package:wishey/features/topics_board/cubit/topics_board_cubit.dart';
+
+const _appBarHeading = 'Your Wish Topics';
 
 class TopicsBoardPage extends StatelessWidget {
   const TopicsBoardPage({Key? key}) : super(key: key);
@@ -47,10 +50,10 @@ class LoadedTopicsBoardPage extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         const SliverAppBar(
-          title: Text('Your Wish Topics'),
+          title: Text(_appBarHeading),
         ),
         SliverPadding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(defaultPadding),
           sliver: CommonSlivers.getGrid(
             topics,
             childBuilder: (context, index, child) => GestureDetector(

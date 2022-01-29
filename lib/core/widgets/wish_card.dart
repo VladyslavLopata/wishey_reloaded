@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wishey/core/util/common_dimens.dart';
 
 class WishCard extends StatelessWidget {
   final String title;
@@ -19,7 +20,7 @@ class WishCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(defaultPadding),
         child: Center(
           child: Text(
             title,

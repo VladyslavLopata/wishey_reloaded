@@ -27,9 +27,11 @@ class _$CreateWishStateTearOff {
 
   LoadedWishState loaded(
       {bool shouldShowSaveButton = false,
+      bool shouldReplaceExisting = false,
       required LoadedStateViewModel viewModel}) {
     return LoadedWishState(
       shouldShowSaveButton: shouldShowSaveButton,
+      shouldReplaceExisting: shouldReplaceExisting,
       viewModel: viewModel,
     );
   }
@@ -48,8 +50,8 @@ mixin _$CreateWishState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            bool shouldShowSaveButton, LoadedStateViewModel viewModel)
+    required TResult Function(bool shouldShowSaveButton,
+            bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
   }) =>
@@ -58,7 +60,8 @@ mixin _$CreateWishState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
   }) =>
@@ -67,7 +70,8 @@ mixin _$CreateWishState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
     required TResult orElse(),
@@ -160,8 +164,8 @@ class _$InitialWishState implements InitialWishState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            bool shouldShowSaveButton, LoadedStateViewModel viewModel)
+    required TResult Function(bool shouldShowSaveButton,
+            bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
   }) {
@@ -173,7 +177,8 @@ class _$InitialWishState implements InitialWishState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
   }) {
@@ -185,7 +190,8 @@ class _$InitialWishState implements InitialWishState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
     required TResult orElse(),
@@ -281,8 +287,8 @@ class _$LoadingWishState implements LoadingWishState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            bool shouldShowSaveButton, LoadedStateViewModel viewModel)
+    required TResult Function(bool shouldShowSaveButton,
+            bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
   }) {
@@ -294,7 +300,8 @@ class _$LoadingWishState implements LoadingWishState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
   }) {
@@ -306,7 +313,8 @@ class _$LoadingWishState implements LoadingWishState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
     required TResult orElse(),
@@ -364,7 +372,10 @@ abstract class $LoadedWishStateCopyWith<$Res> {
   factory $LoadedWishStateCopyWith(
           LoadedWishState value, $Res Function(LoadedWishState) then) =
       _$LoadedWishStateCopyWithImpl<$Res>;
-  $Res call({bool shouldShowSaveButton, LoadedStateViewModel viewModel});
+  $Res call(
+      {bool shouldShowSaveButton,
+      bool shouldReplaceExisting,
+      LoadedStateViewModel viewModel});
 
   $LoadedStateViewModelCopyWith<$Res> get viewModel;
 }
@@ -383,12 +394,17 @@ class _$LoadedWishStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? shouldShowSaveButton = freezed,
+    Object? shouldReplaceExisting = freezed,
     Object? viewModel = freezed,
   }) {
     return _then(LoadedWishState(
       shouldShowSaveButton: shouldShowSaveButton == freezed
           ? _value.shouldShowSaveButton
           : shouldShowSaveButton // ignore: cast_nullable_to_non_nullable
+              as bool,
+      shouldReplaceExisting: shouldReplaceExisting == freezed
+          ? _value.shouldReplaceExisting
+          : shouldReplaceExisting // ignore: cast_nullable_to_non_nullable
               as bool,
       viewModel: viewModel == freezed
           ? _value.viewModel
@@ -409,17 +425,22 @@ class _$LoadedWishStateCopyWithImpl<$Res>
 
 class _$LoadedWishState implements LoadedWishState {
   const _$LoadedWishState(
-      {this.shouldShowSaveButton = false, required this.viewModel});
+      {this.shouldShowSaveButton = false,
+      this.shouldReplaceExisting = false,
+      required this.viewModel});
 
   @JsonKey()
   @override
   final bool shouldShowSaveButton;
+  @JsonKey()
+  @override
+  final bool shouldReplaceExisting;
   @override
   final LoadedStateViewModel viewModel;
 
   @override
   String toString() {
-    return 'CreateWishState.loaded(shouldShowSaveButton: $shouldShowSaveButton, viewModel: $viewModel)';
+    return 'CreateWishState.loaded(shouldShowSaveButton: $shouldShowSaveButton, shouldReplaceExisting: $shouldReplaceExisting, viewModel: $viewModel)';
   }
 
   @override
@@ -429,6 +450,8 @@ class _$LoadedWishState implements LoadedWishState {
             other is LoadedWishState &&
             const DeepCollectionEquality()
                 .equals(other.shouldShowSaveButton, shouldShowSaveButton) &&
+            const DeepCollectionEquality()
+                .equals(other.shouldReplaceExisting, shouldReplaceExisting) &&
             const DeepCollectionEquality().equals(other.viewModel, viewModel));
   }
 
@@ -436,6 +459,7 @@ class _$LoadedWishState implements LoadedWishState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(shouldShowSaveButton),
+      const DeepCollectionEquality().hash(shouldReplaceExisting),
       const DeepCollectionEquality().hash(viewModel));
 
   @JsonKey(ignore: true)
@@ -448,12 +472,12 @@ class _$LoadedWishState implements LoadedWishState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            bool shouldShowSaveButton, LoadedStateViewModel viewModel)
+    required TResult Function(bool shouldShowSaveButton,
+            bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
   }) {
-    return loaded(shouldShowSaveButton, viewModel);
+    return loaded(shouldShowSaveButton, shouldReplaceExisting, viewModel);
   }
 
   @override
@@ -461,11 +485,12 @@ class _$LoadedWishState implements LoadedWishState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
   }) {
-    return loaded?.call(shouldShowSaveButton, viewModel);
+    return loaded?.call(shouldShowSaveButton, shouldReplaceExisting, viewModel);
   }
 
   @override
@@ -473,13 +498,14 @@ class _$LoadedWishState implements LoadedWishState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(shouldShowSaveButton, viewModel);
+      return loaded(shouldShowSaveButton, shouldReplaceExisting, viewModel);
     }
     return orElse();
   }
@@ -525,9 +551,11 @@ class _$LoadedWishState implements LoadedWishState {
 abstract class LoadedWishState implements CreateWishState {
   const factory LoadedWishState(
       {bool shouldShowSaveButton,
+      bool shouldReplaceExisting,
       required LoadedStateViewModel viewModel}) = _$LoadedWishState;
 
   bool get shouldShowSaveButton;
+  bool get shouldReplaceExisting;
   LoadedStateViewModel get viewModel;
   @JsonKey(ignore: true)
   $LoadedWishStateCopyWith<LoadedWishState> get copyWith =>
@@ -577,8 +605,8 @@ class _$SaveErrorWishState implements SaveErrorWishState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            bool shouldShowSaveButton, LoadedStateViewModel viewModel)
+    required TResult Function(bool shouldShowSaveButton,
+            bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
   }) {
@@ -590,7 +618,8 @@ class _$SaveErrorWishState implements SaveErrorWishState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
   }) {
@@ -602,7 +631,8 @@ class _$SaveErrorWishState implements SaveErrorWishState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(bool shouldShowSaveButton, LoadedStateViewModel viewModel)?
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
     required TResult orElse(),
