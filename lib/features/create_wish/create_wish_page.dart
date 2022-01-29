@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wishey/core/models/wish_list.dart';
 import 'package:wishey/core/service_locator/service_locator.dart';
 import 'package:wishey/core/util/common_builders.dart';
+import 'package:wishey/core/util/common_dimens.dart';
 import 'package:wishey/features/create_wish/cubit/create_wish_cubit.dart';
 import 'package:wishey/features/create_wish/cubit/create_wish_state.dart';
 import 'package:wishey/features/create_wish/view_models/loaded_state_view_model.dart';
@@ -101,7 +102,7 @@ class LoadedWishPage extends StatelessWidget {
                 ],
         ),
         SliverPadding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(defaultPadding),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {

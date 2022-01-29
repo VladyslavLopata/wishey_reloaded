@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-const _textBorderRadius = 12.0;
-const _marginSmall = 8.0;
+import 'package:wishey/core/util/common_dimens.dart';
 
 typedef ChangeCallback = void Function(String text);
 
@@ -40,13 +38,13 @@ class _WishTextFieldState extends State<WishTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(_marginSmall),
+      padding: const EdgeInsets.all(defaultPadding),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: _marginSmall),
+            padding: const EdgeInsets.only(left: defaultPadding),
             child: Text(widget.title),
           ),
           TextField(
@@ -55,7 +53,7 @@ class _WishTextFieldState extends State<WishTextField> {
             onEditingComplete: widget.onEditingCompleted,
             decoration: InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(_textBorderRadius),
+                borderRadius: BorderRadius.circular(textBorderRadius),
               ),
             ),
           ),

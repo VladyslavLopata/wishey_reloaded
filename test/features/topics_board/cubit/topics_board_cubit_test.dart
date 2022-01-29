@@ -19,7 +19,6 @@ const _loadedState = TopicsBoardState.loaded(topics: _topics);
 const _errorState = TopicsBoardState.error(_errorString);
 
 final _fakeRoute = WishesBoardRoute(topic: _topic);
-final _fakeCreateRoute = CreateWishRoute();
 
 @GenerateMocks([GetTopicsUseCase])
 void main() {

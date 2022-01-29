@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wishey/core/util/common_dimens.dart';
 
 class CommonBuilders {
   static Widget buildLoadingState() => const Center(
         child: SizedBox(
-          height: 24,
-          width: 24,
+          height: progressIndicatorSize,
+          width: progressIndicatorSize,
           child: CircularProgressIndicator(),
         ),
       );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wishey/core/util/common_dimens.dart';
 import 'package:wishey/core/widgets/wish_card.dart';
 
 class _CommonGrid {
@@ -6,8 +7,8 @@ class _CommonGrid {
   SliverGridDelegate get gridDelegate =>
       const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 8.0,
-        crossAxisSpacing: 8.0,
+        mainAxisSpacing: defaultPadding,
+        crossAxisSpacing: defaultPadding,
       );
 
   SliverChildDelegate getDelegate(
