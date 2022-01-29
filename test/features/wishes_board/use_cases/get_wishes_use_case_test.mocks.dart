@@ -40,4 +40,13 @@ class MockWishesRepository extends _i1.Mock implements _i3.WishesRepository {
               returnValue:
                   Future<_i2.ErrorProne<void>>.value(_FakeErrorProne_0<void>()))
           as _i4.Future<_i2.ErrorProne<void>>);
+  @override
+  _i4.Future<_i2.ErrorProne<void>> replaceWish(
+          {_i5.Wish? toReplace, _i5.Wish? toBeReplacedWith}) =>
+      (super.noSuchMethod(
+              Invocation.method(#replaceWish, [],
+                  {#toReplace: toReplace, #toBeReplacedWith: toBeReplacedWith}),
+              returnValue:
+                  Future<_i2.ErrorProne<void>>.value(_FakeErrorProne_0<void>()))
+          as _i4.Future<_i2.ErrorProne<void>>);
 }

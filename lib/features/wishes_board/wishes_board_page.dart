@@ -63,7 +63,8 @@ class WishesBoardPageLoadedView extends StatelessWidget {
             wishes.map((wish) => wish.title).toList(),
             childBuilder: (context, index, child) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () =>
+                    context.read<WishesBoardCubit>().editWish(wishes[index]),
                 child: child,
               );
             },

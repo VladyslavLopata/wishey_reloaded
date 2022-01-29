@@ -32,7 +32,10 @@ class _$AppRouter extends RootStackRouter {
           orElse: () => const CreateWishRouteArgs());
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: CreateWishPage(key: args.key, topic: args.topic));
+          child: CreateWishPage(
+              key: args.key,
+              shouldReplaceExisting: args.shouldReplaceExisting,
+              wish: args.wish));
     }
   };
 
@@ -79,22 +82,34 @@ class WishesBoardRouteArgs {
 /// generated route for
 /// [CreateWishPage]
 class CreateWishRoute extends PageRouteInfo<CreateWishRouteArgs> {
-  CreateWishRoute({Key? key, String topic = ''})
+  CreateWishRoute(
+      {Key? key,
+      bool shouldReplaceExisting = false,
+      Wish wish = const Wish(title: '', topic: '')})
       : super(CreateWishRoute.name,
-            path: '/create', args: CreateWishRouteArgs(key: key, topic: topic));
+            path: '/create',
+            args: CreateWishRouteArgs(
+                key: key,
+                shouldReplaceExisting: shouldReplaceExisting,
+                wish: wish));
 
   static const String name = 'CreateWishRoute';
 }
 
 class CreateWishRouteArgs {
-  const CreateWishRouteArgs({this.key, this.topic = ''});
+  const CreateWishRouteArgs(
+      {this.key,
+      this.shouldReplaceExisting = false,
+      this.wish = const Wish(title: '', topic: '')});
 
   final Key? key;
 
-  final String topic;
+  final bool shouldReplaceExisting;
+
+  final Wish wish;
 
   @override
   String toString() {
-    return 'CreateWishRouteArgs{key: $key, topic: $topic}';
+    return 'CreateWishRouteArgs{key: $key, shouldReplaceExisting: $shouldReplaceExisting, wish: $wish}';
   }
 }

@@ -30,4 +30,18 @@ class WishesRepositoryImpl with ErrorProneMixin implements WishesRepository {
           wishes: wishList.wishes.followedBy([wish]).toList(),
         ),
       );
+
+  @override
+  Future<ErrorProne<void>> replaceWish({
+    required Wish toReplace,
+    required Wish toBeReplacedWith,
+  }) async {
+    return executeErrorProne(
+      () => wishList = wishList.copyWith(
+        wishes: wishList.wishes
+            .map((wish) => wish == toReplace ? toBeReplacedWith : wish)
+            .toList(),
+      ),
+    );
+  }
 }

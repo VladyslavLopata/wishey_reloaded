@@ -3,6 +3,7 @@ import 'package:wishey/features/create_wish/create_wish_page.dart';
 import 'package:wishey/features/topics_board/topics_board_page.dart';
 import 'package:flutter/material.dart';
 import 'package:wishey/features/wishes_board/wishes_board_page.dart';
+import 'package:wishey/core/models/wish_list.dart';
 
 part 'auto_route.gr.dart';
 

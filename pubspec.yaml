@@ -36,6 +36,7 @@ dev_dependencies:
   hive_generator: ^1.1.2
   injectable_generator: ^1.5.2
   mockito: ^5.0.17
+  mocktail: ^0.2.0
 
 flutter:
   uses-material-design: true

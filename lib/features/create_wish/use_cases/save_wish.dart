@@ -10,7 +10,15 @@ class SaveWishUseCase {
 
   SaveWishUseCase(this._wishesRepository, this._formsStateRepository);
 
-  Future<ErrorProne<void>> call() => _wishesRepository.saveWish(
-        _formsStateRepository.currentWish,
+  Future<ErrorProne<void>> call({bool shouldReplaceExisting = false}) {
+    if (shouldReplaceExisting) {
+      return _wishesRepository.replaceWish(
+        toReplace: _formsStateRepository.initialWish,
+        toBeReplacedWith: _formsStateRepository.currentWish,
       );
+    }
+    return _wishesRepository.saveWish(
+      _formsStateRepository.currentWish,
+    );
+  }
 }

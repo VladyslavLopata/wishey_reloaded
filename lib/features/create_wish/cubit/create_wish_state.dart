@@ -9,6 +9,7 @@ class CreateWishState with _$CreateWishState {
   const factory CreateWishState.loading() = LoadingWishState;
   const factory CreateWishState.loaded({
     @Default(false) bool shouldShowSaveButton,
+    @Default(false) bool shouldReplaceExisting,
     required LoadedStateViewModel viewModel,
   }) = LoadedWishState;
   const factory CreateWishState.saveError() = SaveErrorWishState;
