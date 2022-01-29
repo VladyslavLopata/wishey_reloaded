@@ -7,9 +7,9 @@ class ShouldShowSaveButtonUseCase {
 
   ShouldShowSaveButtonUseCase(this._formsStateRepository);
 
-  Future<bool> call() async {
-    final initVal = await _formsStateRepository.initialWish;
-    final curVal = await _formsStateRepository.currentWish;
+  bool call() {
+    final initVal = _formsStateRepository.initialWish;
+    final curVal = _formsStateRepository.currentWish;
 
     return initVal != curVal;
   }

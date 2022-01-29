@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/error_prone.dart';
 import 'package:wishey/core/models/wish_list.dart';
+import 'package:wishey/core/util/app_config.dart';
 import 'package:wishey/features/create_wish/repositories/forms_state_repository.dart';
 
 const _emptyWish = Wish(topic: '', title: '');
@@ -9,35 +9,29 @@ const _initialKey = '_initialFormKey';
 const _currentKey = '_currentFormKey';
 
 @Injectable(as: FormsStateRepository)
-class FormsStateRepositoryImpl
-    with ErrorProneMixin
-    implements FormsStateRepository {
+class FormsStateRepositoryImpl implements FormsStateRepository {
   final Box<Wish> _hiveBox;
-  FormsStateRepositoryImpl() : _hiveBox = Hive.box('wishes_forms');
+  FormsStateRepositoryImpl(AppConfig _appConfig)
+      : _hiveBox = Hive.box(_appConfig.formsBoxKey);
 
   @override
-  Future<ErrorProne<Wish>> get currentWish async => executeErrorProne(
-        () => _current,
-      );
+  Wish get currentWish => _current;
 
   @override
-  Future<ErrorProne<Wish>> get initialWish async => executeErrorProne(
-        () => _initial,
-      );
+  Wish get initialWish => _initial;
 
   @override
-  Future<ErrorProne<void>> discardWish() async {
-    return executeErrorProne(() {
-      _current = _initial;
-    });
+  set currentWish(Wish wish) => _current = wish;
+
+  @override
+  void discardWish() {
+    _current = _initial;
   }
 
   @override
-  Future<ErrorProne<void>> initWish(Wish initialWish) async {
-    return executeErrorProne(() {
-      _initial = initialWish;
-      _current = initialWish;
-    });
+  void initWish(Wish initialWish) {
+    _initial = initialWish;
+    _current = initialWish;
   }
 }
 

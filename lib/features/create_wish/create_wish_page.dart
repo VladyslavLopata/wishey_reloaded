@@ -14,18 +14,47 @@ class CreateWishPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(
-        create: (_) => injector<CreateWishCubit>()..init(topic),
-        child: BlocBuilder<CreateWishCubit, CreateWishState>(
-          builder: (context, state) => state.when(
-            initial: CommonBuilders.buildEmptyState,
-            loading: CommonBuilders.buildLoadingState,
-            loaded: (shouldShowSaveButton, viewModel) => LoadedWishPage(
-              shouldShowSaveButton: shouldShowSaveButton,
-              wishData: viewModel,
+      body: Builder(
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: () async {
+              ScaffoldMessenger.of(context).clearMaterialBanners();
+              return true;
+            },
+            child: BlocProvider(
+              create: (_) => injector<CreateWishCubit>()..init(topic),
+              child: BlocConsumer<CreateWishCubit, CreateWishState>(
+                buildWhen: (_, current) => current is! SaveErrorWishState,
+                listener: (context, state) => state.maybeWhen(
+                  saveError: () =>
+                      ScaffoldMessenger.of(context).showMaterialBanner(
+                    MaterialBanner(
+                      content: const Text('Title and topic cannot be empty!'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context)
+                                .clearMaterialBanners();
+                          },
+                          child: const Text('Dismiss'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  orElse: () {},
+                ),
+                builder: (context, state) => state.maybeWhen(
+                  loading: CommonBuilders.buildLoadingState,
+                  loaded: (shouldShowSaveButton, viewModel) => LoadedWishPage(
+                    shouldShowSaveButton: shouldShowSaveButton,
+                    wishData: viewModel,
+                  ),
+                  orElse: CommonBuilders.buildEmptyState,
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -67,6 +96,11 @@ class LoadedWishPage extends StatelessWidget {
                   key: Key(field.content),
                   initialData: field.content,
                   title: _extractTitleFromField(field),
+                  onChanged: (text) =>
+                      context.read<CreateWishCubit>().onFieldUpdated(
+                            field: field,
+                            text: text,
+                          ),
                 );
               },
               childCount: _fieldsList.length,

@@ -11,4 +11,5 @@ class CreateWishState with _$CreateWishState {
     @Default(false) bool shouldShowSaveButton,
     required LoadedStateViewModel viewModel,
   }) = LoadedWishState;
+  const factory CreateWishState.saveError() = SaveErrorWishState;
 }

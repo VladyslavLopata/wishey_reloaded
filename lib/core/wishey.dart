@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wishey/core/router/auto_route.gr.dart';
+import 'package:wishey/core/router/auto_route.dart';
 import 'package:wishey/core/service_locator/service_locator.dart';
 
 class WisheyApp extends StatefulWidget {

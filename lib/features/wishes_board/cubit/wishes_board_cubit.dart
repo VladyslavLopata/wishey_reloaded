@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:wishey/core/models/wish_list.dart';
-import 'package:wishey/core/router/auto_route.gr.dart';
+import 'package:wishey/core/router/auto_route.dart';
 import 'package:wishey/features/wishes_board/use_cases/get_wishes_use_case.dart';
 
 part 'wishes_board_state.dart';
