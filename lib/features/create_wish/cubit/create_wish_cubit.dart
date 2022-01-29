@@ -48,7 +48,7 @@ class CreateWishCubit extends Cubit<CreateWishState> {
   void onFieldUpdated({
     required WishField field,
     required String text,
-  }) async {
+  }) {
     _updateFieldUseCase(field: field, text: text);
     state.maybeMap(
       loaded: (loadedState) => emit(
