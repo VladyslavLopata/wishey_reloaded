@@ -9,7 +9,10 @@ class InitFormsStorageUseCase {
   InitFormsStorageUseCase(this._formsStateRepository);
 
   void call({
-    Wish wish = const Wish(topic: '', title: ''),
+    Wish wish = const Wish(
+      topic: '',
+      title: '',
+    ),
   }) =>
       _formsStateRepository.initWish(wish);
 }

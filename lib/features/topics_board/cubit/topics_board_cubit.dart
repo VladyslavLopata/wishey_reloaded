@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:wishey/core/models/failure.dart';
 import 'package:wishey/core/router/auto_route.dart';
 import 'package:wishey/core/util/state_mixin.dart';
 import 'package:wishey/features/topics_board/use_cases/get_topics.dart';
@@ -17,27 +18,37 @@ class TopicsBoardCubit extends Cubit<TopicsBoardState>
   TopicsBoardCubit(this._getTopicsUseCase, this._router)
       : super(const TopicsBoardState.initial());
 
-  Future<void> init() async {
-    onlyWhen<InitialTopicsBoardState>(
-      () async {
-        emit(const TopicsBoardState.loading());
+  Future<void> _executeIntialization() async {
+    emit(const TopicsBoardState.loading());
 
-        final errorProneTopics = await _getTopicsUseCase();
+    final errorProneTopics = await _getTopicsUseCase();
 
-        errorProneTopics.when(
-          failure: (problem) {
-            emit(TopicsBoardState.error(problem));
-          },
-          success: (value) {
-            emit(
-              TopicsBoardState.loaded(
-                topics: value,
-              ),
-            );
-          },
+    errorProneTopics.when(
+      failure: (problem) {
+        emit(TopicsBoardState.error(problem));
+      },
+      success: (value) {
+        emit(
+          TopicsBoardState.loaded(
+            topics: value,
+          ),
         );
       },
     );
+  }
+
+  Future<void> init() async {
+    onlyWhen<InitialTopicsBoardState>(
+      () async {
+        _executeIntialization();
+      },
+    );
+  }
+
+  void retry() {
+    onlyWhen<ErrorTopicsBoardState>(() {
+      _executeIntialization();
+    });
   }
 
   void openTopic(String topic) {

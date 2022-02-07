@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:wishey/core/models/error_prone.dart';
+import 'package:wishey/core/models/sucess.dart';
 import 'package:wishey/core/models/wish_list.dart';
 import 'package:wishey/core/repositories/wishes_repository.dart';
 import 'package:wishey/features/create_wish/repositories/forms_state_repository.dart';
@@ -26,7 +27,7 @@ void main() {
     when(_formsStateRepository.initialWish).thenReturn(_emptyWish);
     when(_wishesRepository.saveWish(_emptyWish)).thenAnswer(
       // ignore: void_checks
-      (_) async => ErrorProne.success(const Object()),
+      (_) async => ErrorProne.success(const Success()),
     );
     when(
       _wishesRepository.replaceWish(
@@ -35,7 +36,7 @@ void main() {
       ),
     ).thenAnswer(
       // ignore: void_checks
-      (_) async => ErrorProne.success(const Object()),
+      (_) async => ErrorProne.success(const Success()),
     );
   });
 

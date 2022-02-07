@@ -13,4 +13,5 @@ class CreateWishState with _$CreateWishState {
     required LoadedStateViewModel viewModel,
   }) = LoadedWishState;
   const factory CreateWishState.saveError() = SaveErrorWishState;
+  const factory CreateWishState.serverError() = ServerErrorWishState;
 }

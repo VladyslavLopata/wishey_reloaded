@@ -164,12 +164,14 @@ class _$WishTearOff {
   const _$WishTearOff();
 
   _Wish call(
-      {@HiveField(0) required String topic,
-      @HiveField(1) required String title,
-      @HiveField(2) String? note,
-      @HiveField(3) String? price,
-      @HiveField(4) String? link}) {
+      {int? id,
+      required String topic,
+      required String title,
+      String? note,
+      String? price,
+      String? link}) {
     return _Wish(
+      id: id,
       topic: topic,
       title: title,
       note: note,
@@ -188,15 +190,11 @@ const $Wish = _$WishTearOff();
 
 /// @nodoc
 mixin _$Wish {
-  @HiveField(0)
+  int? get id => throw _privateConstructorUsedError;
   String get topic => throw _privateConstructorUsedError;
-  @HiveField(1)
   String get title => throw _privateConstructorUsedError;
-  @HiveField(2)
   String? get note => throw _privateConstructorUsedError;
-  @HiveField(3)
   String? get price => throw _privateConstructorUsedError;
-  @HiveField(4)
   String? get link => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -209,11 +207,12 @@ abstract class $WishCopyWith<$Res> {
   factory $WishCopyWith(Wish value, $Res Function(Wish) then) =
       _$WishCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(0) String topic,
-      @HiveField(1) String title,
-      @HiveField(2) String? note,
-      @HiveField(3) String? price,
-      @HiveField(4) String? link});
+      {int? id,
+      String topic,
+      String title,
+      String? note,
+      String? price,
+      String? link});
 }
 
 /// @nodoc
@@ -226,6 +225,7 @@ class _$WishCopyWithImpl<$Res> implements $WishCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? topic = freezed,
     Object? title = freezed,
     Object? note = freezed,
@@ -233,6 +233,10 @@ class _$WishCopyWithImpl<$Res> implements $WishCopyWith<$Res> {
     Object? link = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       topic: topic == freezed
           ? _value.topic
           : topic // ignore: cast_nullable_to_non_nullable
@@ -263,11 +267,12 @@ abstract class _$WishCopyWith<$Res> implements $WishCopyWith<$Res> {
       __$WishCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(0) String topic,
-      @HiveField(1) String title,
-      @HiveField(2) String? note,
-      @HiveField(3) String? price,
-      @HiveField(4) String? link});
+      {int? id,
+      String topic,
+      String title,
+      String? note,
+      String? price,
+      String? link});
 }
 
 /// @nodoc
@@ -281,6 +286,7 @@ class __$WishCopyWithImpl<$Res> extends _$WishCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? topic = freezed,
     Object? title = freezed,
     Object? note = freezed,
@@ -288,6 +294,10 @@ class __$WishCopyWithImpl<$Res> extends _$WishCopyWithImpl<$Res>
     Object? link = freezed,
   }) {
     return _then(_Wish(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       topic: topic == freezed
           ? _value.topic
           : topic // ignore: cast_nullable_to_non_nullable
@@ -314,36 +324,33 @@ class __$WishCopyWithImpl<$Res> extends _$WishCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@HiveType(typeId: 0, adapterName: 'WishAdapter')
 class _$_Wish implements _Wish {
   const _$_Wish(
-      {@HiveField(0) required this.topic,
-      @HiveField(1) required this.title,
-      @HiveField(2) this.note,
-      @HiveField(3) this.price,
-      @HiveField(4) this.link});
+      {this.id,
+      required this.topic,
+      required this.title,
+      this.note,
+      this.price,
+      this.link});
 
   factory _$_Wish.fromJson(Map<String, dynamic> json) => _$$_WishFromJson(json);
 
   @override
-  @HiveField(0)
+  final int? id;
+  @override
   final String topic;
   @override
-  @HiveField(1)
   final String title;
   @override
-  @HiveField(2)
   final String? note;
   @override
-  @HiveField(3)
   final String? price;
   @override
-  @HiveField(4)
   final String? link;
 
   @override
   String toString() {
-    return 'Wish(topic: $topic, title: $title, note: $note, price: $price, link: $link)';
+    return 'Wish(id: $id, topic: $topic, title: $title, note: $note, price: $price, link: $link)';
   }
 
   @override
@@ -351,6 +358,7 @@ class _$_Wish implements _Wish {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Wish &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.topic, topic) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.note, note) &&
@@ -361,6 +369,7 @@ class _$_Wish implements _Wish {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(topic),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(note),
@@ -380,28 +389,26 @@ class _$_Wish implements _Wish {
 
 abstract class _Wish implements Wish {
   const factory _Wish(
-      {@HiveField(0) required String topic,
-      @HiveField(1) required String title,
-      @HiveField(2) String? note,
-      @HiveField(3) String? price,
-      @HiveField(4) String? link}) = _$_Wish;
+      {int? id,
+      required String topic,
+      required String title,
+      String? note,
+      String? price,
+      String? link}) = _$_Wish;
 
   factory _Wish.fromJson(Map<String, dynamic> json) = _$_Wish.fromJson;
 
   @override
-  @HiveField(0)
+  int? get id;
+  @override
   String get topic;
   @override
-  @HiveField(1)
   String get title;
   @override
-  @HiveField(2)
   String? get note;
   @override
-  @HiveField(3)
   String? get price;
   @override
-  @HiveField(4)
   String? get link;
   @override
   @JsonKey(ignore: true)

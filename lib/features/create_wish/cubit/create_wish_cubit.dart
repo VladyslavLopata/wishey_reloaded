@@ -72,21 +72,34 @@ class CreateWishCubit extends Cubit<CreateWishState>
       );
 
   void save() => onlyWhen<LoadedWishState>(
-        () {
+        () async {
           final isWishValid = _isWishValidUseCase();
 
           if (isWishValid) {
-            _saveWishUseCase(
+            final saveResult = await _saveWishUseCase(
               shouldReplaceExisting: state.maybeMap(
                 loaded: (loaded) => loaded.shouldReplaceExisting,
                 orElse: () => false,
               ),
             );
-            _router.popUntilRoot();
-            _router.push(
-              WishesBoardRoute(
-                topic: _getWishTopicUseCase(),
-              ),
+
+            saveResult.when(
+              success: (_) {
+                _router.popUntilRoot();
+                _router.push(
+                  WishesBoardRoute(
+                    topic: _getWishTopicUseCase(),
+                  ),
+                );
+              },
+              failure: (failure) {
+                failure.maybeWhen(
+                  duplicate: () => const CreateWishState.saveError(),
+                  orElse: () => emit(
+                    const CreateWishState.serverError(),
+                  ),
+                );
+              },
             );
           } else {
             emit(const CreateWishState.saveError());

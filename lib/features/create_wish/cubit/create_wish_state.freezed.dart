@@ -39,6 +39,10 @@ class _$CreateWishStateTearOff {
   SaveErrorWishState saveError() {
     return const SaveErrorWishState();
   }
+
+  ServerErrorWishState serverError() {
+    return const ServerErrorWishState();
+  }
 }
 
 /// @nodoc
@@ -54,6 +58,7 @@ mixin _$CreateWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
+    required TResult Function() serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,6 +69,7 @@ mixin _$CreateWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,6 +80,7 @@ mixin _$CreateWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -83,6 +90,7 @@ mixin _$CreateWishState {
     required TResult Function(LoadingWishState value) loading,
     required TResult Function(LoadedWishState value) loaded,
     required TResult Function(SaveErrorWishState value) saveError,
+    required TResult Function(ServerErrorWishState value) serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -91,6 +99,7 @@ mixin _$CreateWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -99,6 +108,7 @@ mixin _$CreateWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -168,6 +178,7 @@ class _$InitialWishState implements InitialWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
+    required TResult Function() serverError,
   }) {
     return initial();
   }
@@ -181,6 +192,7 @@ class _$InitialWishState implements InitialWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
   }) {
     return initial?.call();
   }
@@ -194,6 +206,7 @@ class _$InitialWishState implements InitialWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -209,6 +222,7 @@ class _$InitialWishState implements InitialWishState {
     required TResult Function(LoadingWishState value) loading,
     required TResult Function(LoadedWishState value) loaded,
     required TResult Function(SaveErrorWishState value) saveError,
+    required TResult Function(ServerErrorWishState value) serverError,
   }) {
     return initial(this);
   }
@@ -220,6 +234,7 @@ class _$InitialWishState implements InitialWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
   }) {
     return initial?.call(this);
   }
@@ -231,6 +246,7 @@ class _$InitialWishState implements InitialWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -291,6 +307,7 @@ class _$LoadingWishState implements LoadingWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
+    required TResult Function() serverError,
   }) {
     return loading();
   }
@@ -304,6 +321,7 @@ class _$LoadingWishState implements LoadingWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
   }) {
     return loading?.call();
   }
@@ -317,6 +335,7 @@ class _$LoadingWishState implements LoadingWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -332,6 +351,7 @@ class _$LoadingWishState implements LoadingWishState {
     required TResult Function(LoadingWishState value) loading,
     required TResult Function(LoadedWishState value) loaded,
     required TResult Function(SaveErrorWishState value) saveError,
+    required TResult Function(ServerErrorWishState value) serverError,
   }) {
     return loading(this);
   }
@@ -343,6 +363,7 @@ class _$LoadingWishState implements LoadingWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
   }) {
     return loading?.call(this);
   }
@@ -354,6 +375,7 @@ class _$LoadingWishState implements LoadingWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -476,6 +498,7 @@ class _$LoadedWishState implements LoadedWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
+    required TResult Function() serverError,
   }) {
     return loaded(shouldShowSaveButton, shouldReplaceExisting, viewModel);
   }
@@ -489,6 +512,7 @@ class _$LoadedWishState implements LoadedWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
   }) {
     return loaded?.call(shouldShowSaveButton, shouldReplaceExisting, viewModel);
   }
@@ -502,6 +526,7 @@ class _$LoadedWishState implements LoadedWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -517,6 +542,7 @@ class _$LoadedWishState implements LoadedWishState {
     required TResult Function(LoadingWishState value) loading,
     required TResult Function(LoadedWishState value) loaded,
     required TResult Function(SaveErrorWishState value) saveError,
+    required TResult Function(ServerErrorWishState value) serverError,
   }) {
     return loaded(this);
   }
@@ -528,6 +554,7 @@ class _$LoadedWishState implements LoadedWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
   }) {
     return loaded?.call(this);
   }
@@ -539,6 +566,7 @@ class _$LoadedWishState implements LoadedWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -609,6 +637,7 @@ class _$SaveErrorWishState implements SaveErrorWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
+    required TResult Function() serverError,
   }) {
     return saveError();
   }
@@ -622,6 +651,7 @@ class _$SaveErrorWishState implements SaveErrorWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
   }) {
     return saveError?.call();
   }
@@ -635,6 +665,7 @@ class _$SaveErrorWishState implements SaveErrorWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
+    TResult Function()? serverError,
     required TResult orElse(),
   }) {
     if (saveError != null) {
@@ -650,6 +681,7 @@ class _$SaveErrorWishState implements SaveErrorWishState {
     required TResult Function(LoadingWishState value) loading,
     required TResult Function(LoadedWishState value) loaded,
     required TResult Function(SaveErrorWishState value) saveError,
+    required TResult Function(ServerErrorWishState value) serverError,
   }) {
     return saveError(this);
   }
@@ -661,6 +693,7 @@ class _$SaveErrorWishState implements SaveErrorWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
   }) {
     return saveError?.call(this);
   }
@@ -672,6 +705,7 @@ class _$SaveErrorWishState implements SaveErrorWishState {
     TResult Function(LoadingWishState value)? loading,
     TResult Function(LoadedWishState value)? loaded,
     TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
     required TResult orElse(),
   }) {
     if (saveError != null) {
@@ -683,4 +717,133 @@ class _$SaveErrorWishState implements SaveErrorWishState {
 
 abstract class SaveErrorWishState implements CreateWishState {
   const factory SaveErrorWishState() = _$SaveErrorWishState;
+}
+
+/// @nodoc
+abstract class $ServerErrorWishStateCopyWith<$Res> {
+  factory $ServerErrorWishStateCopyWith(ServerErrorWishState value,
+          $Res Function(ServerErrorWishState) then) =
+      _$ServerErrorWishStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$ServerErrorWishStateCopyWithImpl<$Res>
+    extends _$CreateWishStateCopyWithImpl<$Res>
+    implements $ServerErrorWishStateCopyWith<$Res> {
+  _$ServerErrorWishStateCopyWithImpl(
+      ServerErrorWishState _value, $Res Function(ServerErrorWishState) _then)
+      : super(_value, (v) => _then(v as ServerErrorWishState));
+
+  @override
+  ServerErrorWishState get _value => super._value as ServerErrorWishState;
+}
+
+/// @nodoc
+
+class _$ServerErrorWishState implements ServerErrorWishState {
+  const _$ServerErrorWishState();
+
+  @override
+  String toString() {
+    return 'CreateWishState.serverError()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is ServerErrorWishState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(bool shouldShowSaveButton,
+            bool shouldReplaceExisting, LoadedStateViewModel viewModel)
+        loaded,
+    required TResult Function() saveError,
+    required TResult Function() serverError,
+  }) {
+    return serverError();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
+        loaded,
+    TResult Function()? saveError,
+    TResult Function()? serverError,
+  }) {
+    return serverError?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(bool shouldShowSaveButton, bool shouldReplaceExisting,
+            LoadedStateViewModel viewModel)?
+        loaded,
+    TResult Function()? saveError,
+    TResult Function()? serverError,
+    required TResult orElse(),
+  }) {
+    if (serverError != null) {
+      return serverError();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InitialWishState value) initial,
+    required TResult Function(LoadingWishState value) loading,
+    required TResult Function(LoadedWishState value) loaded,
+    required TResult Function(SaveErrorWishState value) saveError,
+    required TResult Function(ServerErrorWishState value) serverError,
+  }) {
+    return serverError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InitialWishState value)? initial,
+    TResult Function(LoadingWishState value)? loading,
+    TResult Function(LoadedWishState value)? loaded,
+    TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
+  }) {
+    return serverError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InitialWishState value)? initial,
+    TResult Function(LoadingWishState value)? loading,
+    TResult Function(LoadedWishState value)? loaded,
+    TResult Function(SaveErrorWishState value)? saveError,
+    TResult Function(ServerErrorWishState value)? serverError,
+    required TResult orElse(),
+  }) {
+    if (serverError != null) {
+      return serverError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ServerErrorWishState implements CreateWishState {
+  const factory ServerErrorWishState() = _$ServerErrorWishState;
 }

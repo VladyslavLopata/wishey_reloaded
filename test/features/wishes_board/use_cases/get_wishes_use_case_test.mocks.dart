@@ -6,6 +6,7 @@ import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:wishey/core/models/error_prone.dart' as _i2;
+import 'package:wishey/core/models/sucess.dart' as _i6;
 import 'package:wishey/core/models/wish_list.dart' as _i5;
 import 'package:wishey/core/repositories/wishes_repository.dart' as _i3;
 
@@ -35,18 +36,18 @@ class MockWishesRepository extends _i1.Mock implements _i3.WishesRepository {
                   _FakeErrorProne_0<_i5.WishList>()))
           as _i4.Future<_i2.ErrorProne<_i5.WishList>>);
   @override
-  _i4.Future<_i2.ErrorProne<void>> saveWish(_i5.Wish? wish) =>
+  _i4.Future<_i2.ErrorProne<_i6.Success>> saveWish(_i5.Wish? wish) =>
       (super.noSuchMethod(Invocation.method(#saveWish, [wish]),
-              returnValue:
-                  Future<_i2.ErrorProne<void>>.value(_FakeErrorProne_0<void>()))
-          as _i4.Future<_i2.ErrorProne<void>>);
+              returnValue: Future<_i2.ErrorProne<_i6.Success>>.value(
+                  _FakeErrorProne_0<_i6.Success>()))
+          as _i4.Future<_i2.ErrorProne<_i6.Success>>);
   @override
-  _i4.Future<_i2.ErrorProne<void>> replaceWish(
+  _i4.Future<_i2.ErrorProne<_i6.Success>> replaceWish(
           {_i5.Wish? toReplace, _i5.Wish? toBeReplacedWith}) =>
       (super.noSuchMethod(
               Invocation.method(#replaceWish, [],
                   {#toReplace: toReplace, #toBeReplacedWith: toBeReplacedWith}),
-              returnValue:
-                  Future<_i2.ErrorProne<void>>.value(_FakeErrorProne_0<void>()))
-          as _i4.Future<_i2.ErrorProne<void>>);
+              returnValue: Future<_i2.ErrorProne<_i6.Success>>.value(
+                  _FakeErrorProne_0<_i6.Success>()))
+          as _i4.Future<_i2.ErrorProne<_i6.Success>>);
 }

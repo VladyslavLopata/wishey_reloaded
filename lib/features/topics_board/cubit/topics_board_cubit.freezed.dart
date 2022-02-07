@@ -31,7 +31,7 @@ class _$TopicsBoardStateTearOff {
     );
   }
 
-  ErrorTopicsBoardState error(Object? error) {
+  ErrorTopicsBoardState error(Failure error) {
     return ErrorTopicsBoardState(
       error,
     );
@@ -48,7 +48,7 @@ mixin _$TopicsBoardState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<String> topics) loaded,
-    required TResult Function(Object? error) error,
+    required TResult Function(Failure error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,7 +56,7 @@ mixin _$TopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,7 +64,7 @@ mixin _$TopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -156,7 +156,7 @@ class _$InitialTopicsBoardState implements InitialTopicsBoardState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<String> topics) loaded,
-    required TResult Function(Object? error) error,
+    required TResult Function(Failure error) error,
   }) {
     return initial();
   }
@@ -167,7 +167,7 @@ class _$InitialTopicsBoardState implements InitialTopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
   }) {
     return initial?.call();
   }
@@ -178,7 +178,7 @@ class _$InitialTopicsBoardState implements InitialTopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -273,7 +273,7 @@ class _$LoadingTopicsBoardState implements LoadingTopicsBoardState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<String> topics) loaded,
-    required TResult Function(Object? error) error,
+    required TResult Function(Failure error) error,
   }) {
     return loading();
   }
@@ -284,7 +284,7 @@ class _$LoadingTopicsBoardState implements LoadingTopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
   }) {
     return loading?.call();
   }
@@ -295,7 +295,7 @@ class _$LoadingTopicsBoardState implements LoadingTopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -415,7 +415,7 @@ class _$LoadedTopicsBoardState implements LoadedTopicsBoardState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<String> topics) loaded,
-    required TResult Function(Object? error) error,
+    required TResult Function(Failure error) error,
   }) {
     return loaded(topics);
   }
@@ -426,7 +426,7 @@ class _$LoadedTopicsBoardState implements LoadedTopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
   }) {
     return loaded?.call(topics);
   }
@@ -437,7 +437,7 @@ class _$LoadedTopicsBoardState implements LoadedTopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -499,7 +499,9 @@ abstract class $ErrorTopicsBoardStateCopyWith<$Res> {
   factory $ErrorTopicsBoardStateCopyWith(ErrorTopicsBoardState value,
           $Res Function(ErrorTopicsBoardState) then) =
       _$ErrorTopicsBoardStateCopyWithImpl<$Res>;
-  $Res call({Object? error});
+  $Res call({Failure error});
+
+  $FailureCopyWith<$Res> get error;
 }
 
 /// @nodoc
@@ -518,8 +520,18 @@ class _$ErrorTopicsBoardStateCopyWithImpl<$Res>
     Object? error = freezed,
   }) {
     return _then(ErrorTopicsBoardState(
-      error == freezed ? _value.error : error,
+      error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as Failure,
     ));
+  }
+
+  @override
+  $FailureCopyWith<$Res> get error {
+    return $FailureCopyWith<$Res>(_value.error, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -529,7 +541,7 @@ class _$ErrorTopicsBoardState implements ErrorTopicsBoardState {
   const _$ErrorTopicsBoardState(this.error);
 
   @override
-  final Object? error;
+  final Failure error;
 
   @override
   String toString() {
@@ -560,7 +572,7 @@ class _$ErrorTopicsBoardState implements ErrorTopicsBoardState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(List<String> topics) loaded,
-    required TResult Function(Object? error) error,
+    required TResult Function(Failure error) error,
   }) {
     return error(this.error);
   }
@@ -571,7 +583,7 @@ class _$ErrorTopicsBoardState implements ErrorTopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
   }) {
     return error?.call(this.error);
   }
@@ -582,7 +594,7 @@ class _$ErrorTopicsBoardState implements ErrorTopicsBoardState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(List<String> topics)? loaded,
-    TResult Function(Object? error)? error,
+    TResult Function(Failure error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -630,9 +642,9 @@ class _$ErrorTopicsBoardState implements ErrorTopicsBoardState {
 }
 
 abstract class ErrorTopicsBoardState implements TopicsBoardState {
-  const factory ErrorTopicsBoardState(Object? error) = _$ErrorTopicsBoardState;
+  const factory ErrorTopicsBoardState(Failure error) = _$ErrorTopicsBoardState;
 
-  Object? get error;
+  Failure get error;
   @JsonKey(ignore: true)
   $ErrorTopicsBoardStateCopyWith<ErrorTopicsBoardState> get copyWith =>
       throw _privateConstructorUsedError;

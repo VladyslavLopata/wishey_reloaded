@@ -7,5 +7,5 @@ class WishesBoardState with _$WishesBoardState {
   const factory WishesBoardState.loaded({
     required List<Wish> wishes,
   }) = LoadedWishesBoardState;
-  const factory WishesBoardState.error(Object? error) = ErrorWishesBoardState;
+  const factory WishesBoardState.error(Failure error) = ErrorWishesBoardState;
 }

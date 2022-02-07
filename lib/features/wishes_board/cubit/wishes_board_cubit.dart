@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:wishey/core/models/failure.dart';
 import 'package:wishey/core/models/wish_list.dart';
 import 'package:wishey/core/router/auto_route.dart';
 import 'package:wishey/core/util/state_mixin.dart';
@@ -43,7 +44,11 @@ class WishesBoardCubit extends Cubit<WishesBoardState>
     onlyWhen<LoadedWishesBoardState>(
       () => _router.push(
         CreateWishRoute(
-          wish: Wish(topic: topic, title: ''),
+          wish: Wish(
+            id: 0,
+            topic: topic,
+            title: '',
+          ),
         ),
       ),
     );

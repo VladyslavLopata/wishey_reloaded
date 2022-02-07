@@ -28,7 +28,10 @@ class TopicsBoardPage extends StatelessWidget {
                 initial: CommonBuilders.buildEmptyState,
                 loading: CommonBuilders.buildLoadingState,
                 loaded: (topics) => LoadedTopicsBoardPage(topics: topics),
-                error: CommonBuilders.buildErrorState,
+                error: (error) => CommonBuilders.buildErrorState(
+                  error: error,
+                  onTryAgain: context.read<TopicsBoardCubit>().retry,
+                ),
               );
             }),
           );
