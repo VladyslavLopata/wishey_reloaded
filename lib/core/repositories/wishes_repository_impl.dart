@@ -1,47 +1,81 @@
+import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
 import 'package:wishey/core/models/error_prone.dart';
+import 'package:wishey/core/models/failure.dart';
+import 'package:wishey/core/models/sucess.dart';
 import 'package:wishey/core/models/wish_list.dart';
+import 'package:http/http.dart' as http;
 import 'package:wishey/core/repositories/wishes_repository.dart';
+import 'package:wishey/core/util/app_config.dart';
 
 @LazySingleton(as: WishesRepository)
 class WishesRepositoryImpl with ErrorProneMixin implements WishesRepository {
-  var wishList = const WishList(
-    wishes: [
-      Wish(topic: 'Topic A', title: 'Title A'),
-      Wish(topic: 'Topic A', title: 'Title B'),
-      Wish(topic: 'Topic A', title: 'Title C'),
-      Wish(topic: 'Topic B', title: 'Title A'),
-      Wish(topic: 'Topic B', title: 'Title B'),
-      Wish(topic: 'Topic B', title: 'Title C'),
-      Wish(
-          topic: 'THIS TOPIC IS REALLY BIG',
-          title: 'THE TITLE IS REAAAAALLY BIG TOO'),
-    ],
-  );
+  final http.Client _httpClient;
+  final AppConfig _config;
+
+  WishesRepositoryImpl(this._httpClient, this._config);
 
   @override
   Future<ErrorProne<WishList>> getWishlist() async {
-    return ErrorProne.success(wishList);
+    final response = await _httpClient.get(
+      Uri.http(_config.apiServerAddress, _config.getWishesRoute),
+      headers: _config.httpHeaders,
+    );
+
+    switch (response.statusCode) {
+      case 200:
+        return ErrorProne.success(
+          WishList.fromJson(
+            jsonDecode(response.body),
+          ),
+        );
+      default:
+        return ErrorProne.failure(const Failure.server());
+    }
   }
 
   @override
-  Future<ErrorProne<void>> saveWish(Wish wish) async => executeErrorProne(
-        () => wishList = wishList.copyWith(
-          wishes: wishList.wishes.followedBy([wish]).toList(),
-        ),
-      );
+  Future<ErrorProne<Success>> saveWish(Wish wish) async {
+    final response = await _httpClient.post(
+      Uri.http(_config.apiServerAddress, _config.postWishRoute),
+      headers: _config.httpHeaders,
+      body: jsonEncode(wish.toJson()),
+    );
+
+    switch (response.statusCode) {
+      case 200:
+        return ErrorProne.success(const Success());
+      case 409:
+        return ErrorProne.failure(const Failure.duplicate());
+      default:
+        return ErrorProne.failure(const Failure.server());
+    }
+  }
 
   @override
-  Future<ErrorProne<void>> replaceWish({
+  Future<ErrorProne<Success>> replaceWish({
     required Wish toReplace,
     required Wish toBeReplacedWith,
   }) async {
-    return executeErrorProne(
-      () => wishList = wishList.copyWith(
-        wishes: wishList.wishes
-            .map((wish) => wish == toReplace ? toBeReplacedWith : wish)
-            .toList(),
+    final response = await _httpClient.post(
+      Uri.http(
+        _config.apiServerAddress,
+        _config.updateWishRoute(
+          toReplace.id.toString(),
+        ),
       ),
+      headers: _config.httpHeaders,
+      body: jsonEncode(toBeReplacedWith.toJson()),
     );
+
+    switch (response.statusCode) {
+      case 200:
+        return ErrorProne.success(const Success());
+      case 409:
+        return ErrorProne.failure(const Failure.duplicate());
+      default:
+        return ErrorProne.failure(const Failure.server());
+    }
   }
 }

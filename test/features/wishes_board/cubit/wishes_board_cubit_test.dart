@@ -8,6 +8,7 @@ import 'package:wishey/core/router/auto_route.dart';
 import 'package:wishey/features/wishes_board/cubit/wishes_board_cubit.dart';
 import 'package:wishey/features/wishes_board/use_cases/get_wishes_use_case.dart';
 
+import '../../topics_board/cubit/topics_board_cubit_test.dart';
 import 'wishes_board_cubit_test.mocks.dart';
 
 const _topic = 'topic';
@@ -15,7 +16,6 @@ const _wishes = [
   Wish(topic: _topic, title: _topic + '1'),
   Wish(topic: _topic, title: _topic + '2'),
 ];
-const _errorObject = 'error';
 final _fakeRouteForCreate = CreateWishRoute(
   wish: const Wish(topic: _topic, title: ''),
 );
@@ -27,6 +27,7 @@ final _fakeRouteForEdit = CreateWishRoute(
 );
 
 const _loadedState = WishesBoardState.loaded(wishes: []);
+const _fakedFailure = FakeFailure();
 
 @GenerateMocks([GetWishesUseCase, AppRouter])
 void main() {
@@ -66,11 +67,11 @@ void main() {
         act: (bloc) => bloc.init(_topic),
         setUp: () {
           when(_getWishesUseCase.call(_topic))
-              .thenAnswer((_) async => ErrorProne.failure(_errorObject));
+              .thenAnswer((_) async => ErrorProne.failure(_fakedFailure));
         },
         expect: () => const [
           WishesBoardState.loading(),
-          WishesBoardState.error(_errorObject),
+          WishesBoardState.error(_fakedFailure),
         ],
         verify: (_) {
           verify(_getWishesUseCase.call(_topic)).called(1);

@@ -1,18 +1,19 @@
-import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:wishey/core/models/wish_list.dart';
-import 'package:wishey/core/util/app_config.dart';
 import 'package:wishey/features/create_wish/repositories/forms_state_repository.dart';
 
-const _emptyWish = Wish(topic: '', title: '');
+const _emptyWish = Wish(
+  topic: '',
+  title: '',
+);
 const _initialKey = '_initialFormKey';
 const _currentKey = '_currentFormKey';
 
-@Injectable(as: FormsStateRepository)
+@LazySingleton(as: FormsStateRepository)
 class FormsStateRepositoryImpl implements FormsStateRepository {
-  final Box<Wish> _hiveBox;
-  FormsStateRepositoryImpl(AppConfig _appConfig)
-      : _hiveBox = Hive.box(_appConfig.formsBoxKey);
+  final _wishMap = <String, Wish>{};
+
+  FormsStateRepositoryImpl();
 
   @override
   Wish get currentWish => _current;
@@ -36,8 +37,8 @@ class FormsStateRepositoryImpl implements FormsStateRepository {
 }
 
 extension _HiveHelpersExtension on FormsStateRepositoryImpl {
-  Wish get _current => _hiveBox.get(_currentKey) ?? _emptyWish;
-  Wish get _initial => _hiveBox.get(_initialKey) ?? _emptyWish;
-  set _current(Wish wish) => _hiveBox.put(_currentKey, wish);
-  set _initial(Wish wish) => _hiveBox.put(_initialKey, wish);
+  Wish get _current => _wishMap[_currentKey] ?? _emptyWish;
+  Wish get _initial => _wishMap[_initialKey] ?? _emptyWish;
+  set _current(Wish wish) => _wishMap[_currentKey] = wish;
+  set _initial(Wish wish) => _wishMap[_initialKey] = wish;
 }

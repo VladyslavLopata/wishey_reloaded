@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 part 'wish_list.freezed.dart';
 part 'wish_list.g.dart';
 
@@ -15,13 +14,13 @@ class WishList with _$WishList {
 
 @freezed
 class Wish with _$Wish {
-  @HiveType(typeId: 0, adapterName: 'WishAdapter')
   const factory Wish({
-    @HiveField(0) required String topic,
-    @HiveField(1) required String title,
-    @HiveField(2) String? note,
-    @HiveField(3) String? price,
-    @HiveField(4) String? link,
+    int? id,
+    required String topic,
+    required String title,
+    String? note,
+    String? price,
+    String? link,
   }) = _Wish;
 
   factory Wish.fromJson(Map<String, dynamic> json) => _$WishFromJson(json);

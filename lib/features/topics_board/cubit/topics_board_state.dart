@@ -8,5 +8,5 @@ class TopicsBoardState with _$TopicsBoardState {
     required List<String> topics,
   }) = LoadedTopicsBoardState;
 
-  const factory TopicsBoardState.error(Object? error) = ErrorTopicsBoardState;
+  const factory TopicsBoardState.error(Failure error) = ErrorTopicsBoardState;
 }

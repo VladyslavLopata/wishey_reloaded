@@ -31,7 +31,10 @@ class WishesBoardPage extends StatelessWidget {
                     wishes: wishes,
                     topic: topic,
                   ),
-                  error: CommonBuilders.buildErrorState,
+                  error: (error) => CommonBuilders.buildErrorState(
+                    error: error,
+                    onTryAgain: () {},
+                  ),
                 );
               },
             ),

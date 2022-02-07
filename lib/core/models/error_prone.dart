@@ -1,9 +1,17 @@
+import 'package:wishey/core/models/failure.dart';
+
 /// Saves try-catching by wrapping value into Either-like object
 /// which can be then unfolded using [when], [forceUnfold] methods
 class ErrorProne<T> {
   final T? _value;
   final bool _isSuccessful;
-  final Object? _problem;
+  final Failure? _problem;
+
+  @override
+  int get hashCode => Object.hash(_value, _isSuccessful, _problem);
+
+  @override
+  operator ==(Object other) => hashCode == other.hashCode;
 
   ErrorProne.success(this._value)
       : _isSuccessful = true,
@@ -23,7 +31,7 @@ class ErrorProne<T> {
   ///   );
   void when({
     required void Function(T value) success,
-    required void Function(Object? problem) failure,
+    required void Function(Failure problem) failure,
   }) {
     assert(
       _isSuccessful && _value != null && _problem == null ||
@@ -33,12 +41,12 @@ class ErrorProne<T> {
       'should never be present otherwise',
     );
 
-    _isSuccessful ? success(_value!) : failure(_problem);
+    _isSuccessful ? success(_value!) : failure(_problem!);
   }
 
   /// A way to make changes to value if there is a value.
   /// Changes nothing, if there wasn't a value.
-  ErrorProne<V> mapIfSuccess<V>(V Function(T) mapper) {
+  ErrorProne<V> mapIfSuccess<V>(V Function(T successValue) mapper) {
     if (_isSuccessful) {
       return ErrorProne.success(mapper(_value!));
     }
@@ -61,7 +69,10 @@ mixin ErrorProneMixin {
     try {
       return ErrorProne.success(function());
     } catch (e) {
-      return ErrorProne.failure(e);
+      if (e is Failure) {
+        return ErrorProne.failure(e);
+      }
+      return ErrorProne.failure(const Failure.severe());
     }
   }
 
@@ -71,7 +82,10 @@ mixin ErrorProneMixin {
     try {
       return ErrorProne.success(await function());
     } catch (e) {
-      return ErrorProne.failure(e);
+      if (e is Failure) {
+        return ErrorProne.failure(e);
+      }
+      return ErrorProne.failure(const Failure.severe());
     }
   }
 }
