@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:wishey/core/util/logger.dart';
+import 'logger.dart';
 
 class WisheyBlocObserver extends BlocObserver {
   @override

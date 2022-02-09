@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wishey/core/models/wish_list.dart';
-import 'package:wishey/core/service_locator/service_locator.dart';
-import 'package:wishey/core/util/common_builders.dart';
-import 'package:wishey/core/util/common_dimens.dart';
-import 'package:wishey/features/create_wish/cubit/create_wish_cubit.dart';
-import 'package:wishey/features/create_wish/cubit/create_wish_state.dart';
-import 'package:wishey/features/create_wish/view_models/loaded_state_view_model.dart';
-import 'package:wishey/features/create_wish/widgets/wish_text_field.dart';
+import '../../core/models/wish_list.dart';
+import '../../core/service_locator/service_locator.dart';
+import '../../core/util/common_builders.dart';
+import '../../core/util/common_dimens.dart';
+import 'cubit/create_wish_cubit.dart';
+import 'cubit/create_wish_state.dart';
+import 'view_models/loaded_state_view_model.dart';
+import 'widgets/wish_text_field.dart';
 
 class CreateWishPage extends StatelessWidget {
   final Wish wish;
@@ -94,7 +94,7 @@ class LoadedWishPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _fieldsList = wishData.fields;
+    final fieldsList = wishData.fields;
     return CustomScrollView(
       slivers: [
         SliverAppBar(
@@ -125,7 +125,7 @@ class LoadedWishPage extends StatelessWidget {
                           ),
                 );
               },
-              childCount: _fieldsList.length,
+              childCount: fieldsList.length,
             ),
           ),
         ),

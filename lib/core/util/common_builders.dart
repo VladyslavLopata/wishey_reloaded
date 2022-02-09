@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wishey/core/models/failure.dart';
-import 'package:wishey/core/util/common_dimens.dart';
+import '../models/failure.dart';
+import 'common_dimens.dart';
 
 class CommonBuilders {
   static Widget buildLoadingState() => const Center(

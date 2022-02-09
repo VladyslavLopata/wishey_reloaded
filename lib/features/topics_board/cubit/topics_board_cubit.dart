@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/failure.dart';
-import 'package:wishey/core/router/auto_route.dart';
-import 'package:wishey/core/util/state_mixin.dart';
-import 'package:wishey/features/topics_board/use_cases/get_topics.dart';
+import '../../../core/models/failure.dart';
+import '../../../core/router/auto_route.dart';
+import '../../../core/util/state_mixin.dart';
+import '../use_cases/get_topics.dart';
 
 part 'topics_board_cubit.freezed.dart';
 part 'topics_board_state.dart';
@@ -39,16 +39,12 @@ class TopicsBoardCubit extends Cubit<TopicsBoardState>
 
   Future<void> init() async {
     onlyWhen<InitialTopicsBoardState>(
-      () async {
-        _executeIntialization();
-      },
+      _executeIntialization,
     );
   }
 
   void retry() {
-    onlyWhen<ErrorTopicsBoardState>(() {
-      _executeIntialization();
-    });
+    onlyWhen<ErrorTopicsBoardState>(_executeIntialization);
   }
 
   void openTopic(String topic) {

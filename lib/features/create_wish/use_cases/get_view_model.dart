@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/wish_list.dart';
-import 'package:wishey/features/create_wish/view_models/loaded_state_view_model.dart';
+import '../../../core/models/wish_list.dart';
+import '../view_models/loaded_state_view_model.dart';
 
 @injectable
 class GetViewModelUseCase {

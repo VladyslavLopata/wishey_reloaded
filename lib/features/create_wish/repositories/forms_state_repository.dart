@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/wish_list.dart';
+import '../../../core/models/wish_list.dart';
 
 const _emptyWish = Wish(
   topic: '',

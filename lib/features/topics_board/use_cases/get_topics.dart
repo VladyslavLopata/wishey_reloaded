@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/error_prone.dart';
-import 'package:wishey/core/repositories/wishes_repository.dart';
+import '../../../core/models/error_prone.dart';
+import '../../../core/repositories/wishes_repository.dart';
 
 @injectable
 class GetTopicsUseCase with ErrorProneMixin {

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:wishey/core/service_locator/service_locator.dart';
-import 'package:wishey/core/util/logger.dart';
+import '../service_locator/service_locator.dart';
+import 'logger.dart';
 
 void configureDio() {
   final dio = injector<Dio>();

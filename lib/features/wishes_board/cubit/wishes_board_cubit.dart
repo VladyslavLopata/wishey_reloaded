@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/failure.dart';
-import 'package:wishey/core/models/wish_list.dart';
-import 'package:wishey/core/router/auto_route.dart';
-import 'package:wishey/core/util/state_mixin.dart';
-import 'package:wishey/features/wishes_board/use_cases/get_wishes_use_case.dart';
+import '../../../core/models/failure.dart';
+import '../../../core/models/wish_list.dart';
+import '../../../core/router/auto_route.dart';
+import '../../../core/util/state_mixin.dart';
+import '../use_cases/get_wishes_use_case.dart';
 
 part 'wishes_board_state.dart';
 part 'wishes_board_cubit.freezed.dart';

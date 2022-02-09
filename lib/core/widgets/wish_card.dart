@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wishey/core/util/common_dimens.dart';
+import '../util/common_dimens.dart';
 
 class WishCard extends StatelessWidget {
   final String title;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wishey/core/service_locator/service_locator.dart';
-import 'package:wishey/core/util/common_builders.dart';
-import 'package:wishey/core/util/common_dimens.dart';
-import 'package:wishey/core/util/common_slivers.dart';
-import 'package:wishey/features/topics_board/cubit/topics_board_cubit.dart';
+import '../../core/service_locator/service_locator.dart';
+import '../../core/util/common_builders.dart';
+import '../../core/util/common_dimens.dart';
+import '../../core/util/common_slivers.dart';
+import 'cubit/topics_board_cubit.dart';
 
 const _appBarHeading = 'Your Wish Topics';
 

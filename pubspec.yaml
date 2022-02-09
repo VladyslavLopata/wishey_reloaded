@@ -35,6 +35,8 @@ dev_dependencies:
   injectable_generator: ^1.5.2
   mockito: ^5.0.17
   mocktail: ^0.2.0
+  all_lint_rules_community:
+    git: https://github.com/gaetschwartz/all_lint_rules
 
 flutter:
   uses-material-design: true

@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/error_prone.dart';
-import 'package:wishey/features/create_wish/repositories/forms_state_repository.dart';
-import 'package:wishey/features/create_wish/view_models/loaded_state_view_model.dart';
+import '../../../core/models/error_prone.dart';
+import '../repositories/forms_state_repository.dart';
+import '../view_models/loaded_state_view_model.dart';
 
 @injectable
 class UpdateFieldUseCase with ErrorProneMixin {

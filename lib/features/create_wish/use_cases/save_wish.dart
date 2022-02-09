@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/error_prone.dart';
-import 'package:wishey/core/repositories/wishes_repository.dart';
-import 'package:wishey/features/create_wish/repositories/forms_state_repository.dart';
+import '../../../core/models/error_prone.dart';
+import '../../../core/repositories/wishes_repository.dart';
+import '../repositories/forms_state_repository.dart';
 
 @injectable
 class SaveWishUseCase {

@@ -8,6 +8,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "31.0.0"
+  all_lint_rules_community:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "290a34cb5aa5e9c6af63823331ee49a38845fafd"
+      url: "https://github.com/gaetschwartz/all_lint_rules"
+    source: git
+    version: "0.0.7"
   analyzer:
     dependency: transitive
     description:

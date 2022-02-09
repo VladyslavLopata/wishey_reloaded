@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wishey/core/util/common_dimens.dart';
-import 'package:wishey/core/widgets/wish_card.dart';
+
+import '../widgets/wish_card.dart';
+import 'common_dimens.dart';
 
 class _CommonGrid {
   const _CommonGrid();

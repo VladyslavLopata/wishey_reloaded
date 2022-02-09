@@ -1,7 +1,9 @@
-import 'package:wishey/core/models/failure.dart';
+import 'package:flutter/foundation.dart';
+import 'failure.dart';
 
 /// Saves try-catching by wrapping value into Either-like object
 /// which can be then unfolded using [when], [forceUnfold] methods
+@immutable
 class ErrorProne<T> {
   final T? _value;
   final bool _isSuccessful;
@@ -11,13 +13,13 @@ class ErrorProne<T> {
   int get hashCode => Object.hash(_value, _isSuccessful, _problem);
 
   @override
-  operator ==(Object other) => hashCode == other.hashCode;
+  bool operator ==(Object other) => hashCode == other.hashCode;
 
-  ErrorProne.success(this._value)
+  const ErrorProne.success(this._value)
       : _isSuccessful = true,
         _problem = null;
 
-  ErrorProne.failure(this._problem)
+  const ErrorProne.failure(this._problem)
       : _value = null,
         _isSuccessful = false;
 
@@ -40,7 +42,7 @@ class ErrorProne<T> {
       'successful constructor is called, and '
       'should never be present otherwise',
     );
-
+    // ignore: null_check_on_nullable_type_parameter
     _isSuccessful ? success(_value!) : failure(_problem!);
   }
 
@@ -48,9 +50,10 @@ class ErrorProne<T> {
   /// Changes nothing, if there wasn't a value.
   ErrorProne<V> mapIfSuccess<V>(V Function(T successValue) mapper) {
     if (_isSuccessful) {
-      return ErrorProne.success(mapper(_value!));
+      // ignore: null_check_on_nullable_type_parameter
+      return ErrorProne<V>.success(mapper(_value!));
     }
-    return ErrorProne.failure(_problem);
+    return ErrorProne<V>.failure(_problem);
   }
 
   /// Returns the value if there is any or null, if there is none.
@@ -67,12 +70,12 @@ mixin ErrorProneMixin {
   /// will be used as a parameter.
   ErrorProne<T> executeErrorProne<T>(T Function() function) {
     try {
-      return ErrorProne.success(function());
+      return ErrorProne<T>.success(function());
     } catch (e) {
       if (e is Failure) {
-        return ErrorProne.failure(e);
+        return ErrorProne<T>.failure(e);
       }
-      return ErrorProne.failure(const Failure.severe());
+      return ErrorProne<T>.failure(const Failure.severe());
     }
   }
 
@@ -80,12 +83,12 @@ mixin ErrorProneMixin {
     Future<T> Function() function,
   ) async {
     try {
-      return ErrorProne.success(await function());
+      return ErrorProne<T>.success(await function());
     } catch (e) {
       if (e is Failure) {
-        return ErrorProne.failure(e);
+        return ErrorProne<T>.failure(e);
       }
-      return ErrorProne.failure(const Failure.severe());
+      return ErrorProne<T>.failure(const Failure.severe());
     }
   }
 }

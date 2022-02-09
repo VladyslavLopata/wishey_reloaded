@@ -1,17 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/wish_list.dart';
-import 'package:wishey/core/router/auto_route.dart';
-import 'package:wishey/core/util/state_mixin.dart';
-import 'package:wishey/features/create_wish/cubit/create_wish_state.dart';
-import 'package:wishey/features/create_wish/use_cases/get_view_model.dart';
-import 'package:wishey/features/create_wish/use_cases/get_wish_topic.dart';
-import 'package:wishey/features/create_wish/use_cases/init_forms_storage.dart';
-import 'package:wishey/features/create_wish/use_cases/is_wish_valid.dart';
-import 'package:wishey/features/create_wish/use_cases/save_wish.dart';
-import 'package:wishey/features/create_wish/use_cases/should_show_save_button.dart';
-import 'package:wishey/features/create_wish/use_cases/update_field.dart';
-import 'package:wishey/features/create_wish/view_models/loaded_state_view_model.dart';
+
+import '../../../core/models/wish_list.dart';
+import '../../../core/router/auto_route.dart';
+import '../../../core/util/state_mixin.dart';
+import '../use_cases/get_view_model.dart';
+import '../use_cases/get_wish_topic.dart';
+import '../use_cases/init_forms_storage.dart';
+import '../use_cases/is_wish_valid.dart';
+import '../use_cases/save_wish.dart';
+import '../use_cases/should_show_save_button.dart';
+import '../use_cases/update_field.dart';
+import '../view_models/loaded_state_view_model.dart';
+import 'create_wish_state.dart';
 
 @injectable
 class CreateWishCubit extends Cubit<CreateWishState>

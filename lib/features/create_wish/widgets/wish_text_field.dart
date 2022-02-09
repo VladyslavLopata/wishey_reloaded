@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wishey/core/util/common_dimens.dart';
+import '../../../core/util/common_dimens.dart';
 
 typedef ChangeCallback = void Function(String text);
 

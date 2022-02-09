@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:wishey/core/models/error_prone.dart';
-import 'package:wishey/core/models/failure.dart';
-import 'package:wishey/core/models/sucess.dart';
-import 'package:wishey/core/models/wish_list.dart';
-import 'package:wishey/core/util/app_config.dart';
+import '../models/error_prone.dart';
+import '../models/failure.dart';
+import '../models/sucess.dart';
+import '../models/wish_list.dart';
+import '../util/app_config.dart';
+
+typedef JsonResponse = Map<String, dynamic>;
 
 @injectable
 class WishesRepository with ErrorProneMixin {
@@ -13,7 +15,7 @@ class WishesRepository with ErrorProneMixin {
   WishesRepository(this._httpClient);
 
   Future<ErrorProne<WishList>> getWishlist() async {
-    final response = await _httpClient.get(
+    final response = await _httpClient.get<JsonResponse>(
       getWishesRoute,
     );
 
@@ -21,27 +23,27 @@ class WishesRepository with ErrorProneMixin {
       case 200:
         return ErrorProne.success(
           WishList.fromJson(
-            response.data,
+            response.data!,
           ),
         );
       default:
-        return ErrorProne.failure(const Failure.server());
+        return const ErrorProne.failure(Failure.server());
     }
   }
 
   Future<ErrorProne<Success>> saveWish(Wish wish) async {
-    final response = await _httpClient.post(
+    final response = await _httpClient.post<JsonResponse>(
       postWishRoute,
       data: wish.toJson(),
     );
 
     switch (response.statusCode) {
       case 200:
-        return ErrorProne.success(const Success());
+        return const ErrorProne.success(Success());
       case 409:
-        return ErrorProne.failure(const Failure.duplicate());
+        return const ErrorProne.failure(Failure.duplicate());
       default:
-        return ErrorProne.failure(const Failure.server());
+        return const ErrorProne.failure(Failure.server());
     }
   }
 
@@ -49,18 +51,18 @@ class WishesRepository with ErrorProneMixin {
     required Wish toReplace,
     required Wish toBeReplacedWith,
   }) async {
-    final response = await _httpClient.post(
+    final response = await _httpClient.post<JsonResponse>(
       '$updateWishRoute/${toReplace.id}',
       data: toBeReplacedWith.toJson(),
     );
 
     switch (response.statusCode) {
       case 200:
-        return ErrorProne.success(const Success());
+        return const ErrorProne.success(Success());
       case 409:
-        return ErrorProne.failure(const Failure.duplicate());
+        return const ErrorProne.failure(Failure.duplicate());
       default:
-        return ErrorProne.failure(const Failure.server());
+        return const ErrorProne.failure(Failure.server());
     }
   }
 }

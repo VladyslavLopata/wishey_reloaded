@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wishey/core/models/failure.dart';
-import 'package:wishey/features/create_wish/view_models/loaded_state_view_model.dart';
+import '../../../core/models/failure.dart';
+import '../view_models/loaded_state_view_model.dart';
 
 part 'create_wish_state.freezed.dart';
 
