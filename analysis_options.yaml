@@ -1,47 +1,9 @@
-include: package:all_lint_rules_community/all.yaml
-
 analyzer:
   exclude:
-    - "**/*.g.dart"
-    - "**/*.freezed.dart"
-    - "**/*.config.dart"
+    - "lib/**.g.dart"
+    - "lib/**.freezed.dart"
+    - "lib/**.config.dart"
     - "test/.test_coverage.dart"
     - "bin/cache/**"
     - "lib/generated_plugin_registrant.dart"
-    - "test/**"
-  strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
-  errors:
-    included_file_warning: ignore
-    missing_required_param: error
-    missing_return: error
-    parameter_assignments: warning
-    todo: ignore
-linter:
-  rules:
-    always_specify_types: false
-    always_put_control_body_on_new_line: false
-    always_put_required_named_parameters_first: false
-    always_use_package_imports: false
-    avoid_annotating_with_dynamic: false
-    avoid_catches_without_on_clauses: false
-    avoid_classes_with_only_static_members: false
-    avoid_final_parameters: false
-    avoid_positional_boolean_parameters: false
-    avoid_redundant_argument_values: false
-    avoid_types_on_closure_parameters: false
-    cascade_invocations: false
-    diagnostic_describe_all_properties: false
-    library_private_types_in_public_api: false
-    omit_local_variable_types: false
-    public_member_api_docs: false
-    prefer_constructors_over_static_methods: false
-    prefer_double_quotes: false
-    prefer_expression_function_bodies: false
-    prefer_final_parameters: false
-    prefer_int_literals: false
-    require_trailing_commas: false
-    sort_constructors_first: false
-    sort_pub_dependencies: false
-    unnecessary_final: false
+    - "test/**.mocks.dart"

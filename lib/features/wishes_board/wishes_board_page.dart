@@ -16,30 +16,32 @@ class WishesBoardPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => injector<WishesBoardCubit>()..init(topic),
       child: SafeArea(
-        child: Builder(builder: (context) {
-          return Scaffold(
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => context.read<WishesBoardCubit>().addWish(topic),
-              child: const Icon(Icons.add),
-            ),
-            body: BlocBuilder<WishesBoardCubit, WishesBoardState>(
-              builder: (context, state) {
-                return state.when(
-                  initial: CommonBuilders.buildEmptyState,
-                  loading: CommonBuilders.buildLoadingState,
-                  loaded: (wishes) => WishesBoardPageLoadedView(
-                    wishes: wishes,
-                    topic: topic,
-                  ),
-                  error: (error) => CommonBuilders.buildErrorState(
-                    error: error,
-                    onTryAgain: () {},
-                  ),
-                );
-              },
-            ),
-          );
-        }),
+        child: BlocBuilder<WishesBoardCubit, WishesBoardState>(
+          builder: (context, state) {
+            return Scaffold(
+              floatingActionButton: state.maybeWhen(
+                loaded: (_) => FloatingActionButton(
+                  onPressed: () =>
+                      context.read<WishesBoardCubit>().addWish(topic),
+                  child: const Icon(Icons.add),
+                ),
+                orElse: () => null,
+              ),
+              body: state.when(
+                initial: CommonBuilders.buildEmptyState,
+                loading: CommonBuilders.buildLoadingState,
+                loaded: (wishes) => WishesBoardPageLoadedView(
+                  wishes: wishes,
+                  topic: topic,
+                ),
+                error: (error) => CommonBuilders.buildErrorState(
+                  error: error,
+                  onTryAgain: () {},
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

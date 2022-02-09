@@ -6,8 +6,6 @@ import '../models/sucess.dart';
 import '../models/wish_list.dart';
 import '../util/app_config.dart';
 
-typedef JsonResponse = Map<String, dynamic>;
-
 @injectable
 class WishesRepository with ErrorProneMixin {
   final Dio _httpClient;
@@ -15,7 +13,7 @@ class WishesRepository with ErrorProneMixin {
   WishesRepository(this._httpClient);
 
   Future<ErrorProne<WishList>> getWishlist() async {
-    final response = await _httpClient.get<JsonResponse>(
+    final response = await _httpClient.get(
       getWishesRoute,
     );
 
@@ -32,7 +30,7 @@ class WishesRepository with ErrorProneMixin {
   }
 
   Future<ErrorProne<Success>> saveWish(Wish wish) async {
-    final response = await _httpClient.post<JsonResponse>(
+    final response = await _httpClient.post(
       postWishRoute,
       data: wish.toJson(),
     );
@@ -51,7 +49,7 @@ class WishesRepository with ErrorProneMixin {
     required Wish toReplace,
     required Wish toBeReplacedWith,
   }) async {
-    final response = await _httpClient.post<JsonResponse>(
+    final response = await _httpClient.post(
       '$updateWishRoute/${toReplace.id}',
       data: toBeReplacedWith.toJson(),
     );
