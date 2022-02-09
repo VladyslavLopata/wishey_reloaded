@@ -28,22 +28,22 @@ class MockFormsStateRepository extends _i1.Mock
   }
 
   @override
-  _i2.Wish get initialWish =>
-      (super.noSuchMethod(Invocation.getter(#initialWish),
-          returnValue: _FakeWish_0()) as _i2.Wish);
-  @override
   _i2.Wish get currentWish =>
       (super.noSuchMethod(Invocation.getter(#currentWish),
+          returnValue: _FakeWish_0()) as _i2.Wish);
+  @override
+  _i2.Wish get initialWish =>
+      (super.noSuchMethod(Invocation.getter(#initialWish),
           returnValue: _FakeWish_0()) as _i2.Wish);
   @override
   set currentWish(_i2.Wish? wish) =>
       super.noSuchMethod(Invocation.setter(#currentWish, wish),
           returnValueForMissingStub: null);
   @override
+  void discardWish() => super.noSuchMethod(Invocation.method(#discardWish, []),
+      returnValueForMissingStub: null);
+  @override
   void initWish(_i2.Wish? initialWish) =>
       super.noSuchMethod(Invocation.method(#initWish, [initialWish]),
           returnValueForMissingStub: null);
-  @override
-  void discardWish() => super.noSuchMethod(Invocation.method(#discardWish, []),
-      returnValueForMissingStub: null);
 }

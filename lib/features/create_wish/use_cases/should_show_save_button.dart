@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:wishey/core/models/wish_list.dart';
 import 'package:wishey/features/create_wish/repositories/forms_state_repository.dart';
 
 @injectable
@@ -7,10 +8,18 @@ class ShouldShowSaveButtonUseCase {
 
   ShouldShowSaveButtonUseCase(this._formsStateRepository);
 
+  Wish _replaceNullWithEmpty(Wish wish) {
+    return wish.copyWith(
+      note: wish.note ?? '',
+      link: wish.link ?? '',
+      price: wish.price ?? '',
+    );
+  }
+
   bool call() {
     final initVal = _formsStateRepository.initialWish;
     final curVal = _formsStateRepository.currentWish;
 
-    return initVal != curVal;
+    return _replaceNullWithEmpty(initVal) != _replaceNullWithEmpty(curVal);
   }
 }

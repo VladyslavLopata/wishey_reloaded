@@ -6,6 +6,7 @@ analyzer:
     - lib/**.freezed.dart
     - lib/**.config.dart
     - lib/**.gr.dart
+    - lib/**.mocks.dart
 
 linter:
   rules:

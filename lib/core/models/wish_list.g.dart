@@ -14,7 +14,7 @@ _$_WishList _$$_WishListFromJson(Map<String, dynamic> json) => _$_WishList(
 
 Map<String, dynamic> _$$_WishListToJson(_$_WishList instance) =>
     <String, dynamic>{
-      'wishes': instance.wishes,
+      'wishes': instance.wishes.map((e) => e.toJson()).toList(),
     };
 
 _$_Wish _$$_WishFromJson(Map<String, dynamic> json) => _$_Wish(
@@ -26,11 +26,20 @@ _$_Wish _$$_WishFromJson(Map<String, dynamic> json) => _$_Wish(
       link: json['link'] as String?,
     );
 
-Map<String, dynamic> _$$_WishToJson(_$_Wish instance) => <String, dynamic>{
-      'id': instance.id,
-      'topic': instance.topic,
-      'title': instance.title,
-      'note': instance.note,
-      'price': instance.price,
-      'link': instance.link,
-    };
+Map<String, dynamic> _$$_WishToJson(_$_Wish instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  val['topic'] = instance.topic;
+  val['title'] = instance.title;
+  writeNotNull('note', instance.note);
+  writeNotNull('price', instance.price);
+  writeNotNull('link', instance.link);
+  return val;
+}

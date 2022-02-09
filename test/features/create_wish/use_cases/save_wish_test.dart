@@ -8,7 +8,7 @@ import 'package:wishey/features/create_wish/repositories/forms_state_repository.
 import 'package:wishey/features/create_wish/use_cases/save_wish.dart';
 
 import '../../wishes_board/use_cases/get_wishes_use_case_test.mocks.dart';
-import 'init_forms_storage.mocks.dart';
+import 'init_forms_storage_test.mocks.dart';
 
 const _emptyWish = Wish(title: '', topic: '');
 

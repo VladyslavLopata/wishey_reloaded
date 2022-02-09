@@ -4,6 +4,7 @@ import 'package:wishey/core/util/common_dimens.dart';
 
 class CommonBuilders {
   static Widget buildLoadingState() => const Center(
+        key: Key('_wisheyLoader'),
         child: SizedBox(
           height: progressIndicatorSize,
           width: progressIndicatorSize,
@@ -11,13 +12,16 @@ class CommonBuilders {
         ),
       );
 
-  static Widget buildEmptyState() => const SizedBox();
+  static Widget buildEmptyState() => const SizedBox(
+        key: Key('_wisheyEmptyState'),
+      );
 
   static Widget buildErrorState({
     required Failure error,
     required VoidCallback onTryAgain,
   }) =>
       Center(
+        key: ObjectKey(error),
         child: Column(
           children: [
             const Text(

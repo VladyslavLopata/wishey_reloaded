@@ -19,14 +19,12 @@ class WishCard extends StatelessWidget {
         color: Colors.deepOrange,
         borderRadius: BorderRadius.circular(12.0),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(defaultPadding),
-        child: Center(
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white),
-          ),
+      padding: const EdgeInsets.all(defaultPadding),
+      child: Center(
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );

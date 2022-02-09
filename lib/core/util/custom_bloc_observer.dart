@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:wishey/core/util/logger.dart';
 
-class CustomBlocObserver extends BlocObserver {
+class WisheyBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);

@@ -40,18 +40,39 @@ class CreateWishCubit extends Cubit<CreateWishState>
     required Wish wish,
     bool shouldReplaceExisting = false,
   }) =>
-      onlyWhen<InitialWishState>(() {
-        emit(const CreateWishState.loading());
+      onlyWhen<InitialWishState>(
+        () {
+          emit(const CreateWishState.loading());
 
-        _initFormsStorageUseCase(wish: wish);
+          _initFormsStorageUseCase(wish: wish);
 
-        emit(
-          CreateWishState.loaded(
-            shouldReplaceExisting: shouldReplaceExisting,
-            viewModel: _getViewModelUseCase(wish),
-          ),
-        );
-      });
+          emit(
+            CreateWishState.loaded(
+              shouldReplaceExisting: shouldReplaceExisting,
+              viewModel: _getViewModelUseCase(wish),
+            ),
+          );
+        },
+      );
+
+  void onRetry({
+    required Wish wish,
+    bool shouldReplaceExisting = false,
+  }) =>
+      onlyWhen<ServerErrorWishState>(
+        () {
+          emit(const CreateWishState.loading());
+
+          _initFormsStorageUseCase(wish: wish);
+
+          emit(
+            CreateWishState.loaded(
+              shouldReplaceExisting: shouldReplaceExisting,
+              viewModel: _getViewModelUseCase(wish),
+            ),
+          );
+        },
+      );
 
   void onFieldUpdated({
     required WishField field,
@@ -60,13 +81,10 @@ class CreateWishCubit extends Cubit<CreateWishState>
       onlyWhen<LoadedWishState>(
         () {
           _updateFieldUseCase(field: field, text: text);
-          state.maybeMap(
-            loaded: (loadedState) => emit(
-              loadedState.copyWith(
-                shouldShowSaveButton: _shouldShowSaveButtonUseCase(),
-              ),
+          emit(
+            (state as LoadedWishState).copyWith(
+              shouldShowSaveButton: _shouldShowSaveButtonUseCase(),
             ),
-            orElse: () {},
           );
         },
       );
@@ -77,10 +95,8 @@ class CreateWishCubit extends Cubit<CreateWishState>
 
           if (isWishValid) {
             final saveResult = await _saveWishUseCase(
-              shouldReplaceExisting: state.maybeMap(
-                loaded: (loaded) => loaded.shouldReplaceExisting,
-                orElse: () => false,
-              ),
+              shouldReplaceExisting:
+                  (state as LoadedWishState).shouldReplaceExisting,
             );
 
             saveResult.when(
@@ -94,9 +110,9 @@ class CreateWishCubit extends Cubit<CreateWishState>
               },
               failure: (failure) {
                 failure.maybeWhen(
-                  duplicate: () => const CreateWishState.saveError(),
+                  duplicate: () => emit(const CreateWishState.saveError()),
                   orElse: () => emit(
-                    const CreateWishState.serverError(),
+                    CreateWishState.serverError(failure: failure),
                   ),
                 );
               },

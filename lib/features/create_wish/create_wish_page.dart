@@ -55,7 +55,7 @@ class CreateWishPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  orElse: () {},
+                  orElse: () => null,
                 ),
                 builder: (context, state) => state.maybeWhen(
                   loading: CommonBuilders.buildLoadingState,
@@ -63,6 +63,13 @@ class CreateWishPage extends StatelessWidget {
                       LoadedWishPage(
                     shouldShowSaveButton: shouldShowSaveButton,
                     wishData: viewModel,
+                  ),
+                  serverError: (error) => CommonBuilders.buildErrorState(
+                    error: error,
+                    onTryAgain: () => context.read<CreateWishCubit>().onRetry(
+                          wish: wish,
+                          shouldReplaceExisting: shouldReplaceExisting,
+                        ),
                   ),
                   orElse: CommonBuilders.buildEmptyState,
                 ),

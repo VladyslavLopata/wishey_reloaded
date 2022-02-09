@@ -24,10 +24,22 @@ void main() {
     () {
       test(
         'WHEN called with differing current and initial wishes\n'
-        'THEN should return false',
+        'THEN should return true',
         () {
           when(_formsStateRepository.initialWish).thenReturn(_wish1);
           when(_formsStateRepository.currentWish).thenReturn(_wish2);
+          expect(_shouldShowSaveButtonUseCase(), true);
+          verify(_formsStateRepository.initialWish).called(1);
+          verify(_formsStateRepository.currentWish).called(1);
+          verifyNoMoreInteractions(_formsStateRepository);
+        },
+      );
+      test(
+        'WHEN called with same current and initial wishes\n'
+        'THEN should return true',
+        () {
+          when(_formsStateRepository.initialWish).thenReturn(_wish1);
+          when(_formsStateRepository.currentWish).thenReturn(_wish1);
           expect(_shouldShowSaveButtonUseCase(), false);
           verify(_formsStateRepository.initialWish).called(1);
           verify(_formsStateRepository.currentWish).called(1);
@@ -35,12 +47,15 @@ void main() {
         },
       );
       test(
-        'WHEN called with save current and initial wishes\n'
-        'THEN should return false',
+        'GIVEN called with same current and initial wishes\n'
+        'WHEN one field is null for A and empty for B'
+        'THEN should return true',
         () {
           when(_formsStateRepository.initialWish).thenReturn(_wish1);
-          when(_formsStateRepository.currentWish).thenReturn(_wish1);
-          expect(_shouldShowSaveButtonUseCase(), true);
+          when(_formsStateRepository.currentWish).thenReturn(
+            _wish1.copyWith(note: ''),
+          );
+          expect(_shouldShowSaveButtonUseCase(), false);
           verify(_formsStateRepository.initialWish).called(1);
           verify(_formsStateRepository.currentWish).called(1);
           verifyNoMoreInteractions(_formsStateRepository);

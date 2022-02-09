@@ -40,8 +40,10 @@ class _$CreateWishStateTearOff {
     return const SaveErrorWishState();
   }
 
-  ServerErrorWishState serverError() {
-    return const ServerErrorWishState();
+  ServerErrorWishState serverError({required Failure failure}) {
+    return ServerErrorWishState(
+      failure: failure,
+    );
   }
 }
 
@@ -58,7 +60,7 @@ mixin _$CreateWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
-    required TResult Function() serverError,
+    required TResult Function(Failure failure) serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,7 +71,7 @@ mixin _$CreateWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -80,7 +82,7 @@ mixin _$CreateWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -178,7 +180,7 @@ class _$InitialWishState implements InitialWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
-    required TResult Function() serverError,
+    required TResult Function(Failure failure) serverError,
   }) {
     return initial();
   }
@@ -192,7 +194,7 @@ class _$InitialWishState implements InitialWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
   }) {
     return initial?.call();
   }
@@ -206,7 +208,7 @@ class _$InitialWishState implements InitialWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -307,7 +309,7 @@ class _$LoadingWishState implements LoadingWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
-    required TResult Function() serverError,
+    required TResult Function(Failure failure) serverError,
   }) {
     return loading();
   }
@@ -321,7 +323,7 @@ class _$LoadingWishState implements LoadingWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
   }) {
     return loading?.call();
   }
@@ -335,7 +337,7 @@ class _$LoadingWishState implements LoadingWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -498,7 +500,7 @@ class _$LoadedWishState implements LoadedWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
-    required TResult Function() serverError,
+    required TResult Function(Failure failure) serverError,
   }) {
     return loaded(shouldShowSaveButton, shouldReplaceExisting, viewModel);
   }
@@ -512,7 +514,7 @@ class _$LoadedWishState implements LoadedWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
   }) {
     return loaded?.call(shouldShowSaveButton, shouldReplaceExisting, viewModel);
   }
@@ -526,7 +528,7 @@ class _$LoadedWishState implements LoadedWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -637,7 +639,7 @@ class _$SaveErrorWishState implements SaveErrorWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
-    required TResult Function() serverError,
+    required TResult Function(Failure failure) serverError,
   }) {
     return saveError();
   }
@@ -651,7 +653,7 @@ class _$SaveErrorWishState implements SaveErrorWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
   }) {
     return saveError?.call();
   }
@@ -665,7 +667,7 @@ class _$SaveErrorWishState implements SaveErrorWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
     required TResult orElse(),
   }) {
     if (saveError != null) {
@@ -724,6 +726,9 @@ abstract class $ServerErrorWishStateCopyWith<$Res> {
   factory $ServerErrorWishStateCopyWith(ServerErrorWishState value,
           $Res Function(ServerErrorWishState) then) =
       _$ServerErrorWishStateCopyWithImpl<$Res>;
+  $Res call({Failure failure});
+
+  $FailureCopyWith<$Res> get failure;
 }
 
 /// @nodoc
@@ -736,26 +741,57 @@ class _$ServerErrorWishStateCopyWithImpl<$Res>
 
   @override
   ServerErrorWishState get _value => super._value as ServerErrorWishState;
+
+  @override
+  $Res call({
+    Object? failure = freezed,
+  }) {
+    return _then(ServerErrorWishState(
+      failure: failure == freezed
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as Failure,
+    ));
+  }
+
+  @override
+  $FailureCopyWith<$Res> get failure {
+    return $FailureCopyWith<$Res>(_value.failure, (value) {
+      return _then(_value.copyWith(failure: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$ServerErrorWishState implements ServerErrorWishState {
-  const _$ServerErrorWishState();
+  const _$ServerErrorWishState({required this.failure});
+
+  @override
+  final Failure failure;
 
   @override
   String toString() {
-    return 'CreateWishState.serverError()';
+    return 'CreateWishState.serverError(failure: $failure)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is ServerErrorWishState);
+        (other.runtimeType == runtimeType &&
+            other is ServerErrorWishState &&
+            const DeepCollectionEquality().equals(other.failure, failure));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(failure));
+
+  @JsonKey(ignore: true)
+  @override
+  $ServerErrorWishStateCopyWith<ServerErrorWishState> get copyWith =>
+      _$ServerErrorWishStateCopyWithImpl<ServerErrorWishState>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -766,9 +802,9 @@ class _$ServerErrorWishState implements ServerErrorWishState {
             bool shouldReplaceExisting, LoadedStateViewModel viewModel)
         loaded,
     required TResult Function() saveError,
-    required TResult Function() serverError,
+    required TResult Function(Failure failure) serverError,
   }) {
-    return serverError();
+    return serverError(failure);
   }
 
   @override
@@ -780,9 +816,9 @@ class _$ServerErrorWishState implements ServerErrorWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
   }) {
-    return serverError?.call();
+    return serverError?.call(failure);
   }
 
   @override
@@ -794,11 +830,11 @@ class _$ServerErrorWishState implements ServerErrorWishState {
             LoadedStateViewModel viewModel)?
         loaded,
     TResult Function()? saveError,
-    TResult Function()? serverError,
+    TResult Function(Failure failure)? serverError,
     required TResult orElse(),
   }) {
     if (serverError != null) {
-      return serverError();
+      return serverError(failure);
     }
     return orElse();
   }
@@ -845,5 +881,11 @@ class _$ServerErrorWishState implements ServerErrorWishState {
 }
 
 abstract class ServerErrorWishState implements CreateWishState {
-  const factory ServerErrorWishState() = _$ServerErrorWishState;
+  const factory ServerErrorWishState({required Failure failure}) =
+      _$ServerErrorWishState;
+
+  Failure get failure;
+  @JsonKey(ignore: true)
+  $ServerErrorWishStateCopyWith<ServerErrorWishState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

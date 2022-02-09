@@ -50,4 +50,16 @@ class MockWishesRepository extends _i1.Mock implements _i3.WishesRepository {
               returnValue: Future<_i2.ErrorProne<_i6.Success>>.value(
                   _FakeErrorProne_0<_i6.Success>()))
           as _i4.Future<_i2.ErrorProne<_i6.Success>>);
+  @override
+  _i2.ErrorProne<T> executeErrorProne<T>(T Function()? function) =>
+      (super.noSuchMethod(Invocation.method(#executeErrorProne, [function]),
+          returnValue: _FakeErrorProne_0<T>()) as _i2.ErrorProne<T>);
+  @override
+  _i4.Future<_i2.ErrorProne<T>> executeErrorProneAsync<T>(
+          _i4.Future<T> Function()? function) =>
+      (super.noSuchMethod(
+              Invocation.method(#executeErrorProneAsync, [function]),
+              returnValue:
+                  Future<_i2.ErrorProne<T>>.value(_FakeErrorProne_0<T>()))
+          as _i4.Future<_i2.ErrorProne<T>>);
 }

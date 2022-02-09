@@ -18,6 +18,7 @@ class _CommonGrid {
       SliverChildBuilderDelegate(
         (context, index) {
           final wishCard = WishCard(
+            key: ValueKey(cardItems[index]),
             title: cardItems[index],
           );
           return childBuilder(context, index, wishCard);
@@ -34,6 +35,7 @@ class CommonSlivers {
         childBuilder,
   }) =>
       SliverGrid(
+        key: ObjectKey(cardItems),
         delegate: _commonGrid.getDelegate(
           cardItems,
           childBuilder: childBuilder,

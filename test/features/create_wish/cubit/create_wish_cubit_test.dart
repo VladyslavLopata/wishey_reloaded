@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:wishey/core/models/error_prone.dart';
+import 'package:wishey/core/models/failure.dart';
 import 'package:wishey/core/models/wish_list.dart';
 import 'package:wishey/core/router/auto_route.dart';
 import 'package:wishey/features/create_wish/cubit/create_wish_cubit.dart';
@@ -16,6 +17,7 @@ import 'package:wishey/features/create_wish/use_cases/should_show_save_button.da
 import 'package:wishey/features/create_wish/use_cases/update_field.dart';
 import 'package:wishey/features/create_wish/view_models/loaded_state_view_model.dart';
 
+import '../../topics_board/cubit/topics_board_cubit_test.dart';
 import 'create_wish_cubit_test.mocks.dart';
 
 const _emptyTopic = '';
@@ -27,7 +29,12 @@ const _loadedStateWithEmptyTopic = CreateWishState.loaded(
   viewModel: _emptyViewModel,
   shouldShowSaveButton: false,
 );
+const _loadedStateWithEmptyTopicAndShouldReplace = CreateWishState.loaded(
+  viewModel: _emptyViewModel,
+  shouldReplaceExisting: true,
+);
 const _saveErrorState = CreateWishState.saveError();
+const _serverErrorState = CreateWishState.serverError(failure: FakeFailure());
 
 const _loadedStateWithShowSaveButton = CreateWishState.loaded(
   viewModel: _emptyViewModel,
@@ -106,6 +113,33 @@ void main() {
   );
 
   blocTest<CreateWishCubit, CreateWishState>(
+    'GIVEN initial state\n'
+    'WHEN added init event and should replace existing is true\n'
+    'THEN should go through right states',
+    build: () => CreateWishCubit(
+      _getViewModelUseCase,
+      _updateFieldUseCase,
+      _shouldShowSaveButtonUseCase,
+      _isWishValidUseCase,
+      _saveWishUseCase,
+      _initFormsStorageUseCase,
+      _router,
+      _getWishTopicUseCase,
+    ),
+    act: (bloc) => bloc.init(wish: _emptyWish, shouldReplaceExisting: true),
+    expect: () => const [
+      _loadingState,
+      _loadedStateWithEmptyTopicAndShouldReplace,
+    ],
+    verify: (_) {
+      verify(_initFormsStorageUseCase(wish: _emptyWish)).called(1);
+      verify(_getViewModelUseCase(_emptyWish)).called(1);
+      verifyNoMoreInteractions(_initFormsStorageUseCase);
+      verifyNoMoreInteractions(_getViewModelUseCase);
+    },
+  );
+
+  blocTest<CreateWishCubit, CreateWishState>(
     'GIVEN loading state\n'
     'WHEN added init event\n'
     'THEN should do nothing',
@@ -121,6 +155,58 @@ void main() {
     ),
     seed: () => _loadingState,
     act: (bloc) => bloc.init(wish: _emptyWish),
+    expect: () => const [],
+    verify: (_) {
+      verifyNever(_initFormsStorageUseCase(wish: _emptyWish));
+      verifyNever(_getViewModelUseCase(_emptyWish));
+      verifyZeroInteractions(_initFormsStorageUseCase);
+      verifyZeroInteractions(_getViewModelUseCase);
+    },
+  );
+
+  blocTest<CreateWishCubit, CreateWishState>(
+    'GIVEN error state\n'
+    'WHEN added onRetry event\n'
+    'THEN should go through right states',
+    build: () => CreateWishCubit(
+      _getViewModelUseCase,
+      _updateFieldUseCase,
+      _shouldShowSaveButtonUseCase,
+      _isWishValidUseCase,
+      _saveWishUseCase,
+      _initFormsStorageUseCase,
+      _router,
+      _getWishTopicUseCase,
+    ),
+    seed: () => _serverErrorState,
+    act: (bloc) => bloc.onRetry(wish: _emptyWish),
+    expect: () => const [
+      _loadingState,
+      _loadedStateWithEmptyTopic,
+    ],
+    verify: (_) {
+      verify(_initFormsStorageUseCase(wish: _emptyWish)).called(1);
+      verify(_getViewModelUseCase(_emptyWish)).called(1);
+      verifyNoMoreInteractions(_initFormsStorageUseCase);
+      verifyNoMoreInteractions(_getViewModelUseCase);
+    },
+  );
+
+  blocTest<CreateWishCubit, CreateWishState>(
+    'GIVEN init state\n'
+    'WHEN added onRetry event\n'
+    'THEN should do nothing',
+    build: () => CreateWishCubit(
+      _getViewModelUseCase,
+      _updateFieldUseCase,
+      _shouldShowSaveButtonUseCase,
+      _isWishValidUseCase,
+      _saveWishUseCase,
+      _initFormsStorageUseCase,
+      _router,
+      _getWishTopicUseCase,
+    ),
+    act: (bloc) => bloc.onRetry(wish: _emptyWish),
     expect: () => const [],
     verify: (_) {
       verifyNever(_initFormsStorageUseCase(wish: _emptyWish));
@@ -236,6 +322,92 @@ void main() {
       verifyNoMoreInteractions(_saveWishUseCase);
       verifyNoMoreInteractions(_getWishTopicUseCase);
       verifyNoMoreInteractions(_router);
+    },
+  );
+
+  blocTest<CreateWishCubit, CreateWishState>(
+    'GIVEN loaded state\n'
+    'WHEN added save event and there is duplicate save error\n'
+    'THEN should go through right states',
+    build: () => CreateWishCubit(
+      _getViewModelUseCase,
+      _updateFieldUseCase,
+      _shouldShowSaveButtonUseCase,
+      _isWishValidUseCase,
+      _saveWishUseCase,
+      _initFormsStorageUseCase,
+      _router,
+      _getWishTopicUseCase,
+    ),
+    seed: () => _loadedStateWithEmptyTopic,
+    setUp: () {
+      when(_isWishValidUseCase()).thenReturn(true);
+      when(_getWishTopicUseCase()).thenReturn(_emptyTopic);
+      when(_saveWishUseCase()).thenAnswer(
+        (_) async => ErrorProne.failure(
+          // ignore: void_checks
+          const Failure.duplicate(),
+        ),
+      );
+      when(_router.push(_emittedRoute)).thenAnswer((_) => Future.value());
+    },
+    act: (bloc) => bloc.save(),
+    expect: () => [const CreateWishState.saveError()],
+    verify: (_) {
+      verify(_isWishValidUseCase()).called(1);
+      verify(_saveWishUseCase()).called(1);
+      verifyNever(_getWishTopicUseCase());
+      verifyNever(_router.popUntilRoot());
+      verifyNever(_router.push(_emittedRoute));
+      verifyNoMoreInteractions(_isWishValidUseCase);
+      verifyNoMoreInteractions(_saveWishUseCase);
+      verifyZeroInteractions(_getWishTopicUseCase);
+      verifyZeroInteractions(_router);
+    },
+  );
+
+  blocTest<CreateWishCubit, CreateWishState>(
+    'GIVEN loaded state\n'
+    'WHEN added save event and there is server save error\n'
+    'THEN should go through right states',
+    build: () => CreateWishCubit(
+      _getViewModelUseCase,
+      _updateFieldUseCase,
+      _shouldShowSaveButtonUseCase,
+      _isWishValidUseCase,
+      _saveWishUseCase,
+      _initFormsStorageUseCase,
+      _router,
+      _getWishTopicUseCase,
+    ),
+    seed: () => _loadedStateWithEmptyTopic,
+    setUp: () {
+      when(_isWishValidUseCase()).thenReturn(true);
+      when(_getWishTopicUseCase()).thenReturn(_emptyTopic);
+      when(_saveWishUseCase()).thenAnswer(
+        (_) async => ErrorProne.failure(
+          // ignore: void_checks
+          const Failure.server(),
+        ),
+      );
+      when(_router.push(_emittedRoute)).thenAnswer((_) => Future.value());
+    },
+    act: (bloc) => bloc.save(),
+    expect: () => const [
+      CreateWishState.serverError(
+        failure: Failure.server(),
+      ),
+    ],
+    verify: (_) {
+      verify(_isWishValidUseCase()).called(1);
+      verify(_saveWishUseCase()).called(1);
+      verifyNever(_getWishTopicUseCase());
+      verifyNever(_router.popUntilRoot());
+      verifyNever(_router.push(_emittedRoute));
+      verifyNoMoreInteractions(_isWishValidUseCase);
+      verifyNoMoreInteractions(_saveWishUseCase);
+      verifyZeroInteractions(_getWishTopicUseCase);
+      verifyZeroInteractions(_router);
     },
   );
 
